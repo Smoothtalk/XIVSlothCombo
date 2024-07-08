@@ -53,11 +53,18 @@ namespace XIVSlothCombo.Combos.PvE
             // Ranged Option
             Unmend = 3624;
 
+        #endregion
+
+        [SuppressMessage("ReSharper", "MemberHidesStaticFromOuterClass")]
         public static class Buffs
         {
             public const ushort
+                // Main Buffs
                 BloodWeapon = 742,
-                Darkside = 751,
+                Delirium = 3836,
+
+                // Periodic Buffs
+                Darkside = 741,
                 BlackestNight = 1178,
 
                 // "DoT" Buffs
