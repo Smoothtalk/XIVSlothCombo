@@ -32,7 +32,12 @@ namespace XIVSlothCombo.Combos.PvE
             Shadowbringer = 25757,
             Plunge = 3640,
             BloodWeapon = 3625,
-            Unmend = 3624;
+            Unmend = 3624,
+            ScarletDelirium = 36928,
+            Comeuppance = 36929,
+            Torcleaver = 36930,
+            Impalement = 36931,
+            Disesteem = 36932;
 
         public static class Buffs
         {
@@ -93,7 +98,7 @@ namespace XIVSlothCombo.Combos.PvE
                             //Mana Features
                             if (IsEnabled(CustomComboPreset.DRK_ManaOvercap))
                             {
-                                if ((CombatEngageDuration().TotalSeconds < 7 && gauge.DarksideTimeRemaining == 0) || CombatEngageDuration().TotalSeconds >= 6)
+                                if ((CombatEngageDuration().TotalSeconds < 2 && gauge.DarksideTimeRemaining == 0) || CombatEngageDuration().TotalSeconds >= 10)
                                 {
                                     if (IsEnabled(CustomComboPreset.DRK_EoSPooling) && GetCooldownRemainingTime(Delirium) >= 40 && (gauge.HasDarkArts || LocalPlayer.CurrentMp > (mpRemaining + 3000)) && LevelChecked(EdgeOfDarkness) && CanDelayedWeave(actionID))
                                         return OriginalHook(EdgeOfDarkness);
@@ -110,14 +115,14 @@ namespace XIVSlothCombo.Combos.PvE
                             //oGCD Features
                             if (gauge.DarksideTimeRemaining > 1)
                             {
-                                if (IsEnabled(CustomComboPreset.DRK_MainComboCDs_Group) && IsEnabled(CustomComboPreset.DRK_LivingShadow) && gauge.Blood >= 50 && IsOffCooldown(LivingShadow) && LevelChecked(LivingShadow))
+                                if (IsEnabled(CustomComboPreset.DRK_MainComboCDs_Group) && IsEnabled(CustomComboPreset.DRK_LivingShadow) && IsOffCooldown(LivingShadow) && LevelChecked(LivingShadow))
                                     return LivingShadow;
 
                                 if (IsEnabled(CustomComboPreset.DRK_MainComboBuffs_Group))
                                 {
-                                    if (IsEnabled(CustomComboPreset.DRK_BloodWeapon) && IsOffCooldown(BloodWeapon) && LevelChecked(BloodWeapon))
-                                        return BloodWeapon;
-                                    if (IsEnabled(CustomComboPreset.DRK_Delirium) && IsOffCooldown(Delirium) && LevelChecked(Delirium))
+                                    if (IsEnabled(CustomComboPreset.DRK_BloodWeapon) && LevelChecked(BloodWeapon) && IsOffCooldown(BloodWeapon))
+                                        return OriginalHook(BloodWeapon);
+                                    if (IsEnabled(CustomComboPreset.DRK_Delirium) && LevelChecked(Delirium) && IsOffCooldown(Delirium))
                                         return Delirium;
                                 }
 
@@ -157,16 +162,16 @@ namespace XIVSlothCombo.Combos.PvE
                         {
                             //Regular Delirium
                             if (GetBuffStacks(Buffs.Delirium) > 0 && IsNotEnabled(CustomComboPreset.DRK_DelayedBloodspiller))
-                                return Bloodspiller;
+                                return OriginalHook(Bloodspiller);
 
                             //Delayed Delirium
                             if (IsEnabled(CustomComboPreset.DRK_DelayedBloodspiller) && GetBuffStacks(Buffs.Delirium) > 0 && IsOnCooldown(BloodWeapon) && GetBuffStacks(Buffs.BloodWeapon) < 2)
-                                return Bloodspiller;
+                                return OriginalHook(Bloodspiller);
 
                             //Blood management before Delirium
                             if (IsEnabled(CustomComboPreset.DRK_Delirium) &&
                                 ((gauge.Blood >= 60 && GetCooldownRemainingTime(BloodWeapon) is > 0 and < 3) || (gauge.Blood >= 50 && GetCooldownRemainingTime(Delirium) > 37 && !HasEffect(Buffs.Delirium))))
-                                return Bloodspiller;
+                                return OriginalHook(Bloodspiller);
                         }
 
                         // 1-2-3 combo
@@ -189,7 +194,6 @@ namespace XIVSlothCombo.Combos.PvE
                 return actionID;
             }
         }
-
         internal class DRK_StalwartSoulCombo : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRK_StalwartSoulCombo;
@@ -242,7 +246,7 @@ namespace XIVSlothCombo.Combos.PvE
                     if (IsEnabled(CustomComboPreset.DRK_Delirium))
                     {
                         if (LevelChecked(Delirium) && HasEffect(Buffs.Delirium) && gauge.DarksideTimeRemaining > 0)
-                            return Quietus;
+                            return OriginalHook(Quietus);
                     }
 
                     if (comboTime > 0)
@@ -250,7 +254,7 @@ namespace XIVSlothCombo.Combos.PvE
                         if (lastComboMove == Unleash && LevelChecked(StalwartSoul))
                         {
                             if (IsEnabled(CustomComboPreset.DRK_Overcap) && gauge.Blood >= 90 && LevelChecked(Quietus))
-                                return Quietus;
+                                return OriginalHook(Quietus);
                             return StalwartSoul;
                         }
                     }
