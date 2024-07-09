@@ -1,6 +1,7 @@
 ﻿using XIVSlothCombo.Attributes;
 using XIVSlothCombo.Combos.PvE;
 using XIVSlothCombo.Combos.PvP;
+using static XIVSlothCombo.Combos.PvE.GNB;
 
 namespace XIVSlothCombo.Combos
 {
@@ -1563,6 +1564,24 @@ namespace XIVSlothCombo.Combos
         GNB_BS_DoubleDown = 7403,
         #endregion
 
+        #region Fated Circle
+        [ReplaceSkill(GNB.FatedCircle)]
+        [CustomComboInfo("Fated Circle Features", "Collection of Fated Brand related features.", GNB.JobID)]
+        GNB_FC = 7600,
+
+        [ParentCombo(GNB_FC)]
+        [CustomComboInfo("Fated Circle Continuation Feature", "Adds Hypervelocity on Fated Circle.", GNB.JobID)]
+        GNB_FC_Continuation = 7601,
+
+        [ParentCombo(GNB_FC)]
+        [CustomComboInfo("Fated Circle to Bloodfest Feature", "Replace Fated Circle with Bloodfest if you have no powder gauge.", GNB.JobID)]
+        GNB_FC_Bloodfest = 7602,
+
+        [ParentCombo(GNB_FC)]
+        [CustomComboInfo("Double Down on Fated Circle Feature", "Adds Double Down to Fated Circle when under No Mercy and ammo is above 2.", GNB.JobID)]
+        GNB_FC_DoubleDown = 7603,
+        #endregion
+
         #region No Mercy
         [ConflictingCombos(GNB_ST_NoMercy, GNB_AoE_NoMercy)]
         [ReplaceSkill(GNB.NoMercy)]
@@ -1596,7 +1615,7 @@ namespace XIVSlothCombo.Combos
         [CustomComboInfo("Ultimatum Option", "Use Variant Ultimatum on cooldown.", GNB.JobID)]
         GNB_Variant_Ultimatum = 7035,
 
-        // Last value = 7600
+        // Last value = 7700
 
         #endregion
 
