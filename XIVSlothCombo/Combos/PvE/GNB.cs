@@ -145,7 +145,7 @@ namespace XIVSlothCombo.Combos.PvE
                                     return OriginalHook(DangerZone);
 
                                 //Stops DZ Drift
-                                if (HasEffect(Buffs.NoMercy) && ((IsOnCooldown(SonicBreak) && slowSkS) || (IsOnCooldown(DoubleDown) && regularSkS)))
+                                if (HasEffect(Buffs.NoMercy) && slowSkS || (IsOnCooldown(DoubleDown) && regularSkS))
                                     return OriginalHook(DangerZone);
                             }
 
@@ -158,9 +158,9 @@ namespace XIVSlothCombo.Combos.PvE
                             if (HasEffect(Buffs.NoMercy))
                             {
                                 //Post DD
-                                if ((regularSkS && IsOnCooldown(DoubleDown)) || (slowSkS && IsOnCooldown(SonicBreak)))
+                                if ((regularSkS && IsOnCooldown(DoubleDown)) || (slowSkS))
                                 {
-                                    if (IsEnabled(CustomComboPreset.GNB_ST_BowShock) && ActionReady(BowShock))
+                                    if (IsEnabled(CustomComboPreset.GNB_ST_BowShock) && ActionReady(BowShock) && LevelChecked(BowShock))
                                         return BowShock;
                                     if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone))
                                         return OriginalHook(DangerZone);
@@ -198,10 +198,29 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     //Sonic Break
-                    if (regularSkS && IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && (GetCooldownRemainingTime(NoMercy) <= 42) && !HasEffect(Buffs.ReadyToBlast) && IsOnCooldown(DoubleDown))
+                    if (regularSkS && IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) &&
+                        !HasEffect(Buffs.ReadyToBlast) && (GetCooldownRemainingTime(NoMercy) <= 42) && IsOnCooldown(DoubleDown))
                         return SonicBreak;
-                    if (slowSkS && IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToBlast) && (GetCooldownRemainingTime(NoMercy) <= 42.5))
-                        return SonicBreak;
+
+                    if (slowSkS && HasEffect(Buffs.NoMercy) && HasEffect(Buffs.ReadyToBreak))
+                    {
+                        // 2min
+                        if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) &&
+                            !HasEffect(Buffs.ReadyToBlast) && gauge.Ammo == 2 && (GetCooldownRemainingTime(NoMercy) > 57.5) &&
+                            WasLastWeaponskill(BurstStrike) && GetCooldownRemainingTime(Bloodfest) < 30 || IsOffCooldown(Bloodfest))
+                            return SonicBreak;
+                        // 1min 3 carts
+                        else if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) &&
+                            GetCooldownRemainingTime(Bloodfest) > 30 && gauge.Ammo == 3 &&
+                            (GetCooldownRemainingTime(NoMercy) > 57.5))
+                            return SonicBreak;
+                        // 1min 2 carts
+                        else if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) &&
+                            GetCooldownRemainingTime(Bloodfest) > 30 && gauge.Ammo == 0 &&
+                            !HasEffect(Buffs.ReadyToRip) && (GetCooldownRemainingTime(NoMercy) < 52.5) &&
+                            WasLastWeaponskill(GnashingFang) || WasLastAbility(SavageClaw))
+                            return SonicBreak;
+                    }
 
                     // 60s window features
                     if ((GetCooldownRemainingTime(NoMercy) > 57 || HasEffect(Buffs.NoMercy)) && IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
@@ -210,20 +229,35 @@ namespace XIVSlothCombo.Combos.PvE
                         {
                             if (regularSkS)
                             {
+                                if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && GetCooldownRemainingTime(GnashingFang) > 8 && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
+                                    return DoubleDown;
+                            }
+
+                            // 2min NM
+                            if (slowSkS && WasLastWeaponskill(SonicBreak) && gauge.Ammo == 2 && GetCooldownRemainingTime(Bloodfest) < 10 || IsOffCooldown(Bloodfest))
+                            {
                                 if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
                                     return DoubleDown;
                             }
 
-                            if (slowSkS)
+                            // 1min NM 3 carts
+                            else if (slowSkS && WasLastWeaponskill(SonicBreak) && gauge.Ammo == 3)
                             {
                                 if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2 && IsOnCooldown(SonicBreak))
+                                    return DoubleDown;
+                            }
+
+                            // 1min NM 2 carts
+                            else if (slowSkS && WasLastWeaponskill(SolidBarrel) && gauge.Ammo == 3 && GetCooldownRemainingTime(NoMercy) < 57)
+                            {
+                                if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && HasEffect(Buffs.ReadyToBreak) && gauge.Ammo == 3)
                                     return DoubleDown;
                             }
                         }
 
                         if (!LevelChecked(DoubleDown))
                         {
-                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && ActionReady(SonicBreak) && (GetCooldownRemainingTime(NoMercy) <= 42) && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && (GetCooldownRemainingTime(NoMercy) <= 42) && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
                                 return SonicBreak;
                             //sub level 54 functionality
                             if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone) && !LevelChecked(SonicBreak))
@@ -235,12 +269,12 @@ namespace XIVSlothCombo.Combos.PvE
                     if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang))
                     {
                         bool activeNoMercy = GetCooldownRemainingTime(NoMercy) > 50 || HasEffect(Buffs.NoMercy);
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && GetCooldownRemainingTime(GnashingFang) <= GetCooldownRemainingTime(KeenEdge) + 0.25 && gauge.AmmoComboStep == 0 &&
-                            ((gauge.Ammo == MaxCartridges(level) && activeNoMercy && ((CombatEngageDuration().Minutes != 2 && regularSkS) || slowSkS)) || //Regular 60 second GF/NM timing
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && GetCooldownRemainingTime(GnashingFang) <= GetCooldownRemainingTime(KeenEdge) + 0.25 && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
+                            ((gauge.Ammo == MaxCartridges(level) && activeNoMercy && ((CombatEngageDuration().Minutes != 2 && regularSkS) || slowSkS && WasLastWeaponskill(DoubleDown)) || //Regular 60 second GF/NM timing
                             (gauge.Ammo == MaxCartridges(level) && activeNoMercy && CombatEngageDuration().Minutes == 2 && GetCooldownRemainingTime(DoubleDown) <= 1 && regularSkS) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
                             (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) > 17 && GetCooldownRemainingTime(NoMercy) < 35) || //Regular 30 second window                                                                        
-                            (gauge.Ammo == 1 && GetCooldownRemainingTime(NoMercy) > 50 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest))))) //Opener Conditions
+                            (gauge.Ammo == 1 && GetCooldownRemainingTime(NoMercy) > 50 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest)))))) //Opener Conditions
                             return GnashingFang;
                         if (gauge.AmmoComboStep is 1 or 2)
                             return OriginalHook(GnashingFang);
@@ -250,9 +284,24 @@ namespace XIVSlothCombo.Combos.PvE
                     {
                         if (HasEffect(Buffs.NoMercy) && gauge.AmmoComboStep == 0 && LevelChecked(BurstStrike))
                         {
-                            if (LevelChecked(Hypervelocity) && HasEffect(Buffs.ReadyToBlast))
-                                return Hypervelocity;
-                            if (gauge.Ammo != 0 && GetCooldownRemainingTime(GnashingFang) > 4)
+                            if (regularSkS)
+                            {
+                                if (LevelChecked(Hypervelocity) && HasEffect(Buffs.ReadyToBlast))
+                                    return Hypervelocity;
+                                if (gauge.Ammo != 0 && GetCooldownRemainingTime(GnashingFang) > 4)
+                                    return BurstStrike;
+                            }
+                            // 2min 2-cart loop starter
+                            if (slowSkS)
+                            {
+                                if (GetCooldownRemainingTime(NoMercy) < 2.5 && gauge.Ammo == 3 && (GetCooldownRemainingTime(Bloodfest) < 30 || IsOffCooldown(Bloodfest)))
+                                    return BurstStrike;
+                            }
+                        }
+
+                        if (slowSkS && gauge.AmmoComboStep == 0 && LevelChecked(BurstStrike))
+                        {
+                            if (GetCooldownRemainingTime(NoMercy) < 2.5 && gauge.Ammo == 3 && (GetCooldownRemainingTime(Bloodfest) < 30 || IsOffCooldown(Bloodfest)))
                                 return BurstStrike;
                         }
 
@@ -296,7 +345,9 @@ namespace XIVSlothCombo.Combos.PvE
                     bool slowSkS = SkSChoice is 2 && IsEnabled(CustomComboPreset.GNB_ST_SkSSupport);
                     bool regularSkS = SkSChoice is 0 or 1 || IsNotEnabled(CustomComboPreset.GNB_ST_SkSSupport);
 
-                    if (IsOffCooldown(NoMercy) && CanDelayedWeave(SolidBarrel) && IsOffCooldown(GnashingFang) && IsEnabled(CustomComboPreset.GNB_GF_NoMercy))
+                    if (regularSkS && (IsOffCooldown(NoMercy) && CanDelayedWeave(SolidBarrel) && IsOffCooldown(GnashingFang) && IsEnabled(CustomComboPreset.GNB_GF_NoMercy)))
+                        return NoMercy;
+                    if (slowSkS && (IsOffCooldown(NoMercy) && IsOffCooldown(GnashingFang) && IsEnabled(CustomComboPreset.GNB_GF_NoMercy)))
                         return NoMercy;
 
                     if (CanWeave(actionID))
@@ -314,7 +365,7 @@ namespace XIVSlothCombo.Combos.PvE
                                     return OriginalHook(DangerZone);
 
                                 //Stops DZ Drift
-                                if (HasEffect(Buffs.NoMercy) && ((IsOnCooldown(SonicBreak) && slowSkS) || (IsOnCooldown(DoubleDown) && regularSkS)))
+                                if (HasEffect(Buffs.NoMercy) && slowSkS || (IsOnCooldown(DoubleDown) && regularSkS))
                                     return OriginalHook(DangerZone);
                             }
 
@@ -326,11 +377,11 @@ namespace XIVSlothCombo.Combos.PvE
                             if (HasEffect(Buffs.NoMercy))
                             {
                                 //Post DD
-                                if ((regularSkS && IsOnCooldown(DoubleDown)) || (slowSkS && IsOnCooldown(SonicBreak)))
+                                if ((regularSkS && IsOnCooldown(DoubleDown)) || (slowSkS))
                                 {
                                     if (ActionReady(DangerZone))
                                         return OriginalHook(DangerZone);
-                                    if (ActionReady(BowShock))
+                                    if (ActionReady(BowShock) && LevelChecked(BowShock))
                                         return BowShock;
                                 }
 
@@ -358,16 +409,16 @@ namespace XIVSlothCombo.Combos.PvE
                             {
                                 if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
                                     return DoubleDown;
-                                if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && IsOffCooldown(SonicBreak) && HasEffect(Buffs.ReadyToBreak) && IsOnCooldown(DoubleDown))
+                                if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && IsOnCooldown(DoubleDown))
                                     return SonicBreak;
 
                             }
 
                             if (slowSkS)
                             {
-                                if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && IsOffCooldown(SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
+                                if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
                                     return SonicBreak;
-                                if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2 && IsOnCooldown(SonicBreak))
+                                if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2)
                                     return DoubleDown;
                             }
                         }
@@ -467,7 +518,7 @@ namespace XIVSlothCombo.Combos.PvE
                                 return FatedBrand;
                         }
 
-                        if (IsEnabled(CustomComboPreset.GNB_AOE_SonicBreak) && ActionReady(SonicBreak) && (GetCooldownRemainingTime(NoMercy) < 43))
+                        if (IsEnabled(CustomComboPreset.GNB_AOE_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToRaze) && (GetCooldownRemainingTime(NoMercy) < 42))
                             return SonicBreak;
                         if (IsEnabled(CustomComboPreset.GNB_AoE_DoubleDown) && gauge.Ammo >= 2 && ActionReady(DoubleDown))
                             return DoubleDown;
