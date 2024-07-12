@@ -446,7 +446,7 @@ namespace XIVSlothCombo.Combos
         #region BLUE MAGE
 
         [ReplaceSkill(BLU.MoonFlute)]
-        [BlueInactive(BLU.Whistle, BLU.Tingle, BLU.RoseOfDestruction, BLU.MoonFlute, BLU.JKick, BLU.TripleTrident, BLU.Nightbloom, BLU.WingedReprobation, BLU.SeaShanty, BLU.BeingMortal, BLU.ShockStrike, BLU.Surpanakha, BLU.MatraMagic, BLU.PhantomFlurry, BLU.Bristle)]
+        [BlueInactive(BLU.Whistle, BLU.Tingle, BLU.RoseOfDestruction, BLU.MoonFlute, BLU.JKick, BLU.TripleTrident, BLU.Nightbloom, BLU.SeaShanty, BLU.BeingMortal, BLU.ShockStrike, BLU.Surpanakha, BLU.MatraMagic, BLU.PhantomFlurry, BLU.Bristle)]
         [ConflictingCombos(BLU_Opener)]
         [CustomComboInfo("BLU Moon Flute Opener (Level 80)", "Turns Moon Flute into a full opener.\nUse the remaining 2 charges of Winged Reprobation before starting the opener again!\nCan be done with 2.50 spell speed", BLU.JobID, 1)]
         BLU_NewMoonFluteOpener = 70021,
@@ -506,11 +506,6 @@ namespace XIVSlothCombo.Combos
         [ParentCombo(BLU_PrimalCombo)]
         [CustomComboInfo("Sea Shanty Option", "Adds Sea Shanty to the combo.", BLU.JobID)]
         BLU_PrimalCombo_SeaShanty = 70024,
-
-        [BlueInactive(BLU.WingedReprobation)]
-        [ParentCombo(BLU_PrimalCombo)]
-        [CustomComboInfo("Winged Reprobration Option", "Adds Winged Reprobation to the combo.", BLU.JobID)]
-        BLU_PrimalCombo_WingedReprobation = 70025,
 
         [BlueInactive(BLU.MatraMagic)]
         [ParentCombo(BLU_PrimalCombo)]
@@ -1420,6 +1415,9 @@ namespace XIVSlothCombo.Combos
 
         #region GUNBREAKER
 
+        [CustomComboInfo("Skill Speed Support Feature", "Allows for features to support various skill speed rotations.", GNB.JobID, 0)]
+        GNB_ST_SkSSupport = 7000,
+
         #region ST
         [ReplaceSkill(GNB.KeenEdge)]
         [CustomComboInfo("Advanced Gunbreaker Feature", "Replace Keen Edge with its combo chain and uses Burst Strike to prevent ammo overcap. ***DOES NOT WORK WELL WITH 2.46-2.49***", GNB.JobID)]
@@ -1554,19 +1552,19 @@ namespace XIVSlothCombo.Combos
 
         #region Fated Circle
         [ReplaceSkill(GNB.FatedCircle)]
-        [CustomComboInfo("Fated Circle Features", "Collection of Fated Circle related features.", GNB.JobID)]
+        [CustomComboInfo("Fated Brand Features", "Collection of Fated Brand related features.", GNB.JobID)]
         GNB_FC = 7600,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Fated Circle Continuation Feature", "Adds Continuation on Fated Circle.", GNB.JobID)]
+        [CustomComboInfo("Fated Brand Continuation Feature", "Adds Hypervelocity on Fated Circle.", GNB.JobID)]
         GNB_FC_Continuation = 7601,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Fated Circle to Bloodfest Feature", "Replace Fated Circle with Bloodfest if you have no powder gauge.", GNB.JobID)]
+        [CustomComboInfo("Burst Strike to Bloodfest Feature", "Replace Burst Strike with Bloodfest if you have no powder gauge.", GNB.JobID)]
         GNB_FC_Bloodfest = 7602,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Double Down on Fated Circle Feature", "Adds Double Down to Fated Circle when under No Mercy and ammo is above 2.", GNB.JobID)]
+        [CustomComboInfo("Double Down on Burst Strike Feature", "Adds Double Down to Burst Strike when under No Mercy and ammo is above 2.", GNB.JobID)]
         GNB_FC_DoubleDown = 7603,
         #endregion
 
