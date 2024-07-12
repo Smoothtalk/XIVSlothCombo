@@ -243,7 +243,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                     if (CanSpellWeave(actionID))
                     {
-                        bool lucidReady = ActionReady(All.LucidDreaming) && LevelChecked(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.WHM_STHeals_Lucid;
+                        bool lucidReady = ActionReady(All.LucidDreaming) && LevelChecked(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.WHM_STDPS_Lucid;
                         bool pomReady = LevelChecked(PresenceOfMind) && IsOffCooldown(PresenceOfMind);
                         bool assizeReady = LevelChecked(Assize) && IsOffCooldown(Assize);
                         bool pomEnabled = IsEnabled(CustomComboPreset.WHM_ST_MainCombo_PresenceOfMind);
@@ -331,7 +331,7 @@ namespace XIVSlothCombo.Combos.PvE
                         return PlenaryIndulgence;
 
                     if (IsEnabled(CustomComboPreset.WHM_AoEHeals_DivineCaress) && divineCaressReady)
-                        return DivineCaress;
+                        return OriginalHook(DivineCaress);
 
                     if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Lucid) && canWeave && lucidReady)
                         return All.LucidDreaming;
