@@ -82,7 +82,6 @@ namespace XIVSlothCombo.Combos
         Disabled = 99999,
 
         #endregion
-
         #region GLOBAL FEATURES
 
         [ReplaceSkill(All.Sprint)]
@@ -1479,6 +1478,10 @@ namespace XIVSlothCombo.Combos
         [ParentCombo(GNB_ST_MainCombo)]
         [CustomComboInfo("Lightning Shot Uptime Option", "Adds Lightning Shot to the main combo when you are out of range.", GNB.JobID)]
         GNB_ST_RangedUptime = 7013,
+
+        [ParentCombo(GNB_ST_MainCombo)]
+        [CustomComboInfo("2.45 Advanced Gunbreaker Feature", "Replace Keen Edge with its combo chain and uses Burst Strike to prevent ammo overcap. ***TESTING WITH 2.45***", GNB.JobID)]
+        GNB_ST_245 = 7014,
         #endregion
 
         #region Gnashing Fang
