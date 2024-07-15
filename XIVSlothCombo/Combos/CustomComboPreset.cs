@@ -1586,6 +1586,11 @@ namespace XIVSlothCombo.Combos
         [ParentCombo(GNB_NoMercy_Cooldowns)]
         [CustomComboInfo("Sonic Break/Bow Shock Option", "Adds Sonic Break and Bow Shock to No Mercy when No Mercy is on cooldown.", GNB.JobID)]
         GNB_NoMercy_Cooldowns_SonicBreakBowShock = 7502,
+
+        [ParentCombo(GNB_NoMercy_Cooldowns)]
+        [CustomComboInfo("2.45 Skill Speed option", "Adapts No Mercy cooldown rotation to 9 GCDs and oGCDs", GNB.JobID)]
+        GNB_NoMercy_SKS_245 = 7503,
+
         #endregion
 
         [CustomComboInfo("Aurora Protection Feature", "Locks out Aurora if Aurora's effect is on the target.", GNB.JobID, 0, "", "")]
