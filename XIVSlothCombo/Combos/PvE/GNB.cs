@@ -201,7 +201,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                         if (!LevelChecked(DoubleDown))
                         {
-                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && (GetBuffRemainingTime(Buffs.NoMercy) <= GCD) && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && GetBuffRemainingTime(Buffs.NoMercy) <= 2 && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
                                 return SonicBreak;
                             //sub level 54 functionality
                             if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone) && !LevelChecked(SonicBreak))
@@ -210,9 +210,9 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     //Pre Gnashing Fang stuff
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && ActionReady(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25)
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25 && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
                             ((gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
                             (gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
@@ -331,13 +331,13 @@ namespace XIVSlothCombo.Combos.PvE
                         {
                             if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && IsOffCooldown(DoubleDown) && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
                                 return DoubleDown;
-                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && IsOnCooldown(DoubleDown))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && IsOnCooldown(DoubleDown) && GetBuffRemainingTime(Buffs.NoMercy) <= 2)
                                 return SonicBreak;
                         }
 
                         if (!LevelChecked(DoubleDown) && IsEnabled(CustomComboPreset.GNB_GF_Cooldowns))
                         {
-                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && ActionReady(SonicBreak) && (GetCooldownRemainingTime(NoMercy) <= GCD) && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && GetBuffRemainingTime(Buffs.NoMercy) <= 2 && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
                                 return SonicBreak;
                             //sub level 54 functionality
                             if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone) && !LevelChecked(SonicBreak))
@@ -446,7 +446,7 @@ namespace XIVSlothCombo.Combos.PvE
                                 return FatedBrand;
                         }
 
-                        if (IsEnabled(CustomComboPreset.GNB_AOE_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToRaze) && (GetCooldownRemainingTime(NoMercy) < 42))
+                        if (IsEnabled(CustomComboPreset.GNB_AOE_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && !HasEffect(Buffs.ReadyToRaze) && GetBuffRemainingTime(Buffs.NoMercy) <= 2)
                             return SonicBreak;
                         if (IsEnabled(CustomComboPreset.GNB_AoE_DoubleDown) && gauge.Ammo >= 2 && ActionReady(DoubleDown))
                             return DoubleDown;
