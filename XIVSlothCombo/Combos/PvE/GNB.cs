@@ -97,8 +97,8 @@ namespace XIVSlothCombo.Combos.PvE
                             if (quarterWeave)
                             {
                                 if ((gauge.Ammo == 1 && CombatEngageDuration().TotalSeconds < 30 && IsOffCooldown(Bloodfest)) || //Opener Conditions
-                                   (LevelChecked(DoubleDown) && gauge.Ammo == MaxCartridges(level) && lastComboMove == SolidBarrel && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD * 2) || //2 min delay
-                                   (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25)) //Regular NMGF
+                                   (LevelChecked(DoubleDown) && gauge.Ammo == MaxCartridges(level) && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD * 2) || //2 min delay
+                                   (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) <= GCD)) //Regular NMGF
                                     return NoMercy;
                             }
                         }
@@ -174,14 +174,14 @@ namespace XIVSlothCombo.Combos.PvE
                         return OriginalHook(Continuation);
 
                     //Reign combo
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && (LevelChecked(ReignOfBeasts) && (HasEffect(Buffs.NoMercy))))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && (LevelChecked(ReignOfBeasts)))
                     {
-                        if (HasEffect(Buffs.ReadyToReign) && GetBuffRemainingTime(Buffs.ReadyToReign) <= 30)
+                        if (HasEffect(Buffs.ReadyToReign) || GetBuffRemainingTime(Buffs.ReadyToReign) <= 30)
                         {
                             if (WasLastWeaponskill(WickedTalon) || (WasLastAbility(EyeGouge)))
                                 return OriginalHook(ReignOfBeasts);
                         }
-
+ 
                         if (WasLastWeaponskill(ReignOfBeasts) || WasLastWeaponskill(NobleBlood))
                         {
                             return OriginalHook(ReignOfBeasts);
@@ -196,7 +196,7 @@ namespace XIVSlothCombo.Combos.PvE
                     // 60s window features
                     if ((GetCooldownRemainingTime(NoMercy) > 57 || HasEffect(Buffs.NoMercy)) && IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && LevelChecked(DoubleDown) && GetCooldownRemainingTime(GnashingFang) > 8 && IsOffCooldown(DoubleDown) && GetCooldownRemainingTime(GnashingFang) > 8 && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
+                        if (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && LevelChecked(DoubleDown) && GetCooldownRemainingTime(DoubleDown) <= GCD && IsOffCooldown(DoubleDown) && GetCooldownRemainingTime(GnashingFang) > 8 && gauge.Ammo >= 2 && !HasEffect(Buffs.ReadyToRip) && gauge.AmmoComboStep >= 1)
                                 return DoubleDown;
 
                         if (!LevelChecked(DoubleDown))
@@ -210,9 +210,9 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     //Pre Gnashing Fang stuff
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD)
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && ActionReady(GnashingFang) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
                             ((gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
                             (gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
