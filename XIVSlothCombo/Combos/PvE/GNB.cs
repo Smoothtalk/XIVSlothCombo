@@ -381,7 +381,7 @@ namespace XIVSlothCombo.Combos.PvE
                             if (CanWeave(actionID))
                             {
                                 if ((CombatEngageDuration().TotalSeconds < 30 && lastComboMove is SolidBarrel && quarterWeave) // Opener
-                                    || (LevelChecked(ReignOfBeasts) && gauge.Ammo >= 2 && IsOffCooldown(NoMercy) && quarterWeave) // Lv100 on CD use
+                                    || (LevelChecked(ReignOfBeasts) && gauge.Ammo is 3 && IsOffCooldown(NoMercy) && quarterWeave) // Lv100 on CD use
                                     || (!LevelChecked(ReignOfBeasts) && LevelChecked(DoubleDown) && minutes % 2 is 1 && gauge.Ammo >= 2 && IsOffCooldown(NoMercy)) // Lv90 1min On CD use
                                     || (!LevelChecked(ReignOfBeasts) && LevelChecked(DoubleDown) && (GetCooldownRemainingTime(Bloodfest) < 30 || IsOffCooldown(Bloodfest)) && gauge.Ammo is 3) // Lv90 2min 3cart force
                                     || (!LevelChecked(ReignOfBeasts) && !LevelChecked(DoubleDown) && gauge.Ammo >= 1)) // subLv80 ON CD use
@@ -512,7 +512,8 @@ namespace XIVSlothCombo.Combos.PvE
                     // Reign combo
                     if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && (LevelChecked(ReignOfBeasts) && (HasEffect(Buffs.NoMercy))))
                     {
-                        if (HasEffect(Buffs.ReadyToReign) && GetBuffRemainingTime(Buffs.ReadyToReign) >= (3 * GCD))
+                        //2 or 3 GCD, 2 for if you move out during R2R combo, 3 for less flexibility
+                        if (HasEffect(Buffs.ReadyToReign) && GetBuffRemainingTime(Buffs.ReadyToReign) >= (2 * GCD))
                         {
                             if (WasLastWeaponskill(WickedTalon) || (WasLastAbility(EyeGouge)))
                                 return OriginalHook(ReignOfBeasts);
