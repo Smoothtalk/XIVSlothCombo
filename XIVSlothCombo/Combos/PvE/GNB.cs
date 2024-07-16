@@ -82,7 +82,7 @@ namespace XIVSlothCombo.Combos.PvE
                 {
                     var gauge = GetJobGauge<GNBGauge>();
                     var quarterWeave = GetCooldownRemainingTime(actionID) < 1 && GetCooldownRemainingTime(actionID) > 0.6;
-                    float GCD = GetCooldown(KeenEdge).CooldownTotal;
+                    float GCD = GetCooldown(KeenEdge).CooldownTotal; //<2.45
 
                     if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_VariantCure))
                         return Variant.VariantCure;
@@ -210,9 +210,9 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     //Pre Gnashing Fang stuff
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && ActionReady(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.25)
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && ActionReady(GnashingFang) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
                             ((gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
                             (gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
