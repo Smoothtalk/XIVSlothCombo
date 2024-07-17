@@ -97,7 +97,7 @@ namespace XIVSlothCombo.Combos.PvE
                             if (quarterWeave)
                             {
                                 if ((gauge.Ammo == 1 && CombatEngageDuration().TotalSeconds < 30 && IsOffCooldown(Bloodfest)) || //Opener Conditions
-                                   (LevelChecked(DoubleDown) && gauge.Ammo == MaxCartridges(level) && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD * 2) || //2 min delay
+                                   (LevelChecked(DoubleDown) && gauge.Ammo == MaxCartridges(level) && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD) || //2 min delay
                                    (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) <= GCD)) //Regular NMGF
                                     return NoMercy;
                             }
@@ -176,7 +176,7 @@ namespace XIVSlothCombo.Combos.PvE
                     //Reign combo
                     if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && (LevelChecked(ReignOfBeasts)))
                     {
-                        if (HasEffect(Buffs.ReadyToReign) && (GetBuffRemainingTime(Buffs.NoMercy) < GCD * 5 && GetBuffRemainingTime(Buffs.NoMercy) > GCD))
+                        if (HasEffect(Buffs.ReadyToReign) && gauge.AmmoComboStep == 0 && IsOnCooldown(GnashingFang) && GetCooldownRemainingTime(Bloodfest) > 100)
                         {
                             if (WasLastWeaponskill(WickedTalon) || (WasLastAbility(EyeGouge)))
                                 return OriginalHook(ReignOfBeasts);
@@ -201,7 +201,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                         if (!LevelChecked(DoubleDown))
                         {
-                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && GetBuffRemainingTime(Buffs.NoMercy) <= 2 && !HasEffect(Buffs.ReadyToRip) && IsOnCooldown(GnashingFang))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) && GetBuffRemainingTime(Buffs.NoMercy) <= GCD && !HasEffect(Buffs.ReadyToRip))
                                 return SonicBreak;
                             //sub level 54 functionality
                             if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone) && !LevelChecked(SonicBreak))
