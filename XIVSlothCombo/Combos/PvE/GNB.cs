@@ -454,8 +454,8 @@ namespace XIVSlothCombo.Combos.PvE
                             return SonicBreak;
                         if (IsEnabled(CustomComboPreset.GNB_AoE_DoubleDown) && gauge.Ammo >= 2 && ActionReady(DoubleDown))
                             return DoubleDown;
-                        if ((IsEnabled(CustomComboPreset.GNB_AoE_Bloodfest) && gauge.Ammo != 0 && GetCooldownRemainingTime(Bloodfest) < 6 && LevelChecked(FatedCircle))
-                            || (HasEffect(Buffs.NoMercy) && IsOnCooldown(DoubleDown)))
+                        if (IsEnabled(CustomComboPreset.GNB_AoE_Bloodfest) && LevelChecked(FatedCircle) && gauge.Ammo > 0 && (GetCooldownRemainingTime(Bloodfest) < 6
+                            || (HasEffect(Buffs.NoMercy) && IsOnCooldown(DoubleDown))))
                             return FatedCircle;
                     }
 
