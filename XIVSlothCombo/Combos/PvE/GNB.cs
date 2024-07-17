@@ -90,23 +90,6 @@ namespace XIVSlothCombo.Combos.PvE
                     if (IsEnabled(CustomComboPreset.GNB_ST_RangedUptime) && !InMeleeRange() && LevelChecked(LightningShot) && HasBattleTarget())
                         return LightningShot;
 
-                    if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy) && ActionReady(NoMercy))
-                    {
-                        if (LevelChecked(BurstStrike))
-                        {
-                            if (quarterWeave)
-                            {
-                                if ((gauge.Ammo == 1 && CombatEngageDuration().TotalSeconds < 30 && IsOffCooldown(Bloodfest)) || //Opener Conditions
-                                   (LevelChecked(DoubleDown) && gauge.Ammo == MaxCartridges(level) && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD) || //2 min delay
-                                   (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) <= GCD)) //Regular NMGF
-                                    return NoMercy;
-                            }
-                        }
-
-                        if (!LevelChecked(BurstStrike) && quarterWeave) //no cartridges unlocked
-                            return NoMercy;
-                    }
-
                     //oGCDs
                     if (CanWeave(actionID))
                     {
@@ -118,6 +101,24 @@ namespace XIVSlothCombo.Combos.PvE
 
                         if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
                             return Variant.VariantUltimatum;
+
+                        if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
+                        {
+                            if (quarterWeave)
+                            {
+                                if (ActionReady(NoMercy) && LevelChecked(BurstStrike))
+                                {
+                                    if ((gauge.Ammo == 1 && IsOffCooldown(Bloodfest) && IsOffCooldown(DoubleDown) && IsOffCooldown(GnashingFang) && lastComboMove == SolidBarrel) || //Opener Conditions
+                                       (gauge.Ammo == MaxCartridges(level) && IsOffCooldown(Bloodfest) && IsOffCooldown(DoubleDown) && IsOffCooldown(GnashingFang) && comboTime >= 0) || // Re-opener Conditions
+                                       (gauge.Ammo == MaxCartridges(level) && LevelChecked(DoubleDown) && IsOffCooldown(GnashingFang) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) < 30) || // 2 min delay
+                                       (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) < 2 && GetCooldownRemainingTime(Bloodfest) > 30)) //1min
+                                        return NoMercy;
+                                }
+                            }
+
+                            if (!LevelChecked(BurstStrike) && quarterWeave) //no cartridges unlocked
+                                return NoMercy;
+                        }
 
                         if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
                         {
@@ -210,16 +211,16 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     //Pre Gnashing Fang stuff
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang))
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && GetCooldownRemainingTime(GnashingFang) <= 1 && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
                             ((gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
                             (gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
                             (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) >= GCD * 7 && GetCooldownRemainingTime(NoMercy) <= GCD * 14) || //Regular 30 second window                                                                        
                             (gauge.Ammo == 1 && GetCooldownRemainingTime(NoMercy) > 50 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest))))) //Opener Conditions
                             return GnashingFang;
-                        if (gauge.AmmoComboStep >= 1)
+                        if (gauge.AmmoComboStep is 1 or 2)
                             return OriginalHook(GnashingFang);
                     }
 
@@ -252,6 +253,9 @@ namespace XIVSlothCombo.Combos.PvE
                             return SolidBarrel;
                         }
                     }
+
+                    if (comboTime == 0 && gauge.Ammo == MaxCartridges(level))
+                        return actionID;
 
                     return KeenEdge;
                 }
