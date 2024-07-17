@@ -176,7 +176,7 @@ namespace XIVSlothCombo.Combos.PvE
                     //Reign combo
                     if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && (LevelChecked(ReignOfBeasts)))
                     {
-                        if (HasEffect(Buffs.ReadyToReign) || GetBuffRemainingTime(Buffs.ReadyToReign) <= 30)
+                        if (HasEffect(Buffs.ReadyToReign) && (GetBuffRemainingTime(Buffs.NoMercy) < GCD * 5 && GetBuffRemainingTime(Buffs.NoMercy) > GCD))
                         {
                             if (WasLastWeaponskill(WickedTalon) || (WasLastAbility(EyeGouge)))
                                 return OriginalHook(ReignOfBeasts);
@@ -190,7 +190,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                     //Sonic Break
                     if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) &&
-                        !HasEffect(Buffs.ReadyToBlast) && (GetBuffRemainingTime(Buffs.NoMercy) <= 2) && IsOnCooldown(DoubleDown))
+                        !HasEffect(Buffs.ReadyToBlast) && (GetBuffRemainingTime(Buffs.NoMercy) <= GCD) && IsOnCooldown(DoubleDown))
                         return SonicBreak;
 
                     // 60s window features
