@@ -189,11 +189,6 @@ namespace XIVSlothCombo.Combos.PvE
                         }
                     }
 
-                    //Sonic Break
-                    if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) &&
-                        !HasEffect(Buffs.ReadyToBlast) && (GetBuffRemainingTime(Buffs.NoMercy) <= GCD) && IsOnCooldown(DoubleDown))
-                        return SonicBreak;
-
                     // 60s window features
                     if ((GetCooldownRemainingTime(NoMercy) > 57 || HasEffect(Buffs.NoMercy)) && IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
                     {
@@ -223,6 +218,11 @@ namespace XIVSlothCombo.Combos.PvE
                         if (gauge.AmmoComboStep is 1 or 2)
                             return OriginalHook(GnashingFang);
                     }
+
+                    //Sonic Break
+                    if (IsEnabled(CustomComboPreset.GNB_ST_SonicBreak) && HasEffect(Buffs.ReadyToBreak) &&
+                        !HasEffect(Buffs.ReadyToBlast) && (GetBuffRemainingTime(Buffs.NoMercy) <= GCD) && IsOnCooldown(DoubleDown))
+                        return SonicBreak;
 
                     if (IsEnabled(CustomComboPreset.GNB_ST_BurstStrike) && IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
                     {
