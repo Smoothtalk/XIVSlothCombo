@@ -209,10 +209,10 @@ namespace XIVSlothCombo.Combos.PvE
                     if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang))
                     {
                         if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && GetCooldownRemainingTime(GnashingFang) <= 1 && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0 &&
-                            ((gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
-                            (gauge.Ammo == MaxCartridges(level) && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
+                            ((gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(NoMercy) >= 40 && WasLastAction(NoMercy)) || //Regular 60 second GF/NM timing
+                            (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(NoMercy) >= 40 && GetCooldownRemainingTime(DoubleDown) <= GCD && GetCooldownRemainingTime(Bloodfest) <= 20) || //2 min delay for regular SkS
                             (gauge.Ammo == 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > 50) || //NMDDGF windows/Scuffed windows
-                            (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) >= GCD * 7 && GetCooldownRemainingTime(NoMercy) <= GCD * 14) || //Regular 30 second window                                                                        
+                            (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) > 17 && GetCooldownRemainingTime(NoMercy) < 35) || //Regular 30 second window                                                                        
                             (gauge.Ammo == 1 && GetCooldownRemainingTime(NoMercy) > 50 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest))))) //Opener Conditions
                             return GnashingFang;
                         if (gauge.AmmoComboStep is 1 or 2)
