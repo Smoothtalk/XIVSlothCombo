@@ -129,15 +129,14 @@ namespace XIVSlothCombo.Combos.PvE
                             }
 
 
-                            if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone))
+                            if (IsEnabled(CustomComboPreset.GNB_ST_BlastingZone) && ActionReady(DangerZone) && !JustUsed(NoMercy))
                             {
-                                //Blasting Zone outside of NM
-                                if (!HasEffect(Buffs.NoMercy) && ((IsOnCooldown(GnashingFang) && GetCooldownRemainingTime(NoMercy) > GCD * 7) ||
-                                    !LevelChecked(GnashingFang))) // subLv60
+                                // Lv90
+                                if (!LevelChecked(ReignOfBeasts) && !HasEffect(Buffs.NoMercy) && ((IsOnCooldown(GnashingFang) && GetCooldownRemainingTime(NoMercy) > 17) || // Post GF
+                                    !LevelChecked(GnashingFang))) // Pre GF
                                     return OriginalHook(DangerZone);
-
-                                //Stops DZ Drift
-                                if (IsOnCooldown(DoubleDown))
+                                // Lv100 use
+                                if (LevelChecked(ReignOfBeasts) && (WasLastWeaponskill(DoubleDown) || GetCooldownRemainingTime(NoMercy) > 17))
                                     return OriginalHook(DangerZone);
                             }
 
