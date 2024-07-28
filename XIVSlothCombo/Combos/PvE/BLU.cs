@@ -277,7 +277,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                     if (!HasEffect(Buffs.PhantomFlurry))
                     {
-                        if (IsEnabled(CustomComboPreset.BLU_PrimalCombo_WingedReprobation) && FindEffect(Buffs.WingedReprobation)?.StackCount > 1 && IsOffCooldown(WingedReprobation))
+                        if  (FindEffect(Buffs.WingedReprobation)?.StackCount > 1 && IsOffCooldown(WingedReprobation))
                             return OriginalHook(WingedReprobation);
 
                         if (IsOffCooldown(FeatherRain) && IsSpellActive(FeatherRain) &&
@@ -309,7 +309,7 @@ namespace XIVSlothCombo.Combos.PvE
                             if (GetRemainingCharges(Surpanakha) == 0) surpanakhaReady = false;
                         }
 
-                        if (IsEnabled(CustomComboPreset.BLU_PrimalCombo_WingedReprobation) && IsSpellActive(WingedReprobation) && IsOffCooldown(WingedReprobation))
+                        if  (IsSpellActive(WingedReprobation) && IsOffCooldown(WingedReprobation))
                             return OriginalHook(WingedReprobation);
 
                         if (IsEnabled(CustomComboPreset.BLU_PrimalCombo_SeaShanty) && IsSpellActive(SeaShanty) && IsOffCooldown(SeaShanty))
