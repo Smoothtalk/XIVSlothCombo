@@ -2007,270 +2007,294 @@ namespace XIVSlothCombo.Combos
         [CustomComboInfo("Simple Mode - AoE", "Turns Death Blossom into a one-button full AoE rotation.", NIN.JobID)]
         NIN_AoE_SimpleMode = 10002,
 
+        #region ST Advanced
+
         [ReplaceSkill(NIN.SpinningEdge)]
         [ConflictingCombos(NIN_ST_SimpleMode)]
         [CustomComboInfo("Advanced Mode - Single Target", "Replace Spinning Edge with a one-button full single target rotation.\nThese features are ideal if you want to customize the rotation.", NIN.JobID)]
         NIN_ST_AdvancedMode = 10003,
 
+        [ConflictingCombos(NIN_KassatsuChiJin, NIN_KassatsuTrick)]
+        [ParentCombo(NIN_ST_AdvancedMode)]
+        [CustomComboInfo("Balance Opener Option", "Starts with the Balance opener.\nDoes pre-pull first, if you enter combat before hiding the opener will fail.\nLikewise, moving during TCJ will cause the opener to fail too.\nRequires you to be out of combat with majority of your cooldowns available for it to work.", NIN.JobID)]
+        NIN_ST_AdvancedMode_BalanceOpener = 10004,
+
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Throwing Dagger Uptime Option", "Adds Throwing Dagger to Advanced Mode if out of melee range.", NIN.JobID)]
-        NIN_ST_AdvancedMode_RangedUptime = 10004,
+        NIN_ST_AdvancedMode_RangedUptime = 10005,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
-        [CustomComboInfo("Mug Option", "Adds Mug to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Mug = 10005,
+        [CustomComboInfo("Dokumori Option", "Adds Dokumori to Advanced Mode.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Dokumori = 10006,
 
-        [ConflictingCombos(NIN_ST_AdvancedMode_Mug_AlignBefore)]
-        [ParentCombo(NIN_ST_AdvancedMode_Mug)]
-        [CustomComboInfo("Align Mug with Trick Attack Option", "Only uses Mug whilst the target has Trick Attack, otherwise will use on cooldown.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Mug_AlignAfter = 10006,
+        [ConflictingCombos(NIN_ST_AdvancedMode_Dokumori_AlignBefore)]
+        [ParentCombo(NIN_ST_AdvancedMode_Dokumori)]
+        [CustomComboInfo("Align Dokumori with Trick Attack Option", "Only uses Dokumori whilst the target has Trick Attack, otherwise will use on cooldown.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Dokumori_AlignAfter = 10007,
 
-        [ConflictingCombos(NIN_ST_AdvancedMode_Mug_AlignAfter)]
-        [ParentCombo(NIN_ST_AdvancedMode_Mug)]
-        [CustomComboInfo("Use Mug before Trick Attack Option", "Aligns Mug with Trick Attack but weaves it at least 1 GCD before Trick Attack.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Mug_AlignBefore = 10007,
+        [ConflictingCombos(NIN_ST_AdvancedMode_Dokumori_AlignAfter)]
+        [ParentCombo(NIN_ST_AdvancedMode_Dokumori)]
+        [CustomComboInfo("Use Dokumori before Trick Attack Option", "Aligns Dokumori with Trick Attack but weaves it at least 1 GCD before Trick Attack.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Dokumori_AlignBefore = 10008,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Trick Attack Option", "Adds Trick Attack to Advanced Mode.", NIN.JobID)] //Has Config
-        NIN_ST_AdvancedMode_TrickAttack = 10008,
+        NIN_ST_AdvancedMode_TrickAttack = 10009,
 
         [ParentCombo(NIN_ST_AdvancedMode_TrickAttack)]
         [CustomComboInfo("Save Cooldowns Before Trick Attack Option", "Stops using abilities with longer cooldowns up to 15 seconds before Trick Attack comes off cooldown.", NIN.JobID)] //HasConfig
-        NIN_ST_AdvancedMode_TrickAttack_Cooldowns = 10009,
+        NIN_ST_AdvancedMode_TrickAttack_Cooldowns = 10010,
 
         [ParentCombo(NIN_ST_AdvancedMode_TrickAttack)]
         [CustomComboInfo("Delayed Trick Attack Option", "Waits at least 8 seconds into combat before using Trick Attack.", NIN.JobID)]
-        NIN_ST_AdvancedMode_TrickAttack_Delayed = 10010,
+        NIN_ST_AdvancedMode_TrickAttack_Delayed = 10011,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Ninjitsu Option", "Adds Ninjitsu to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus = 10011,
+        NIN_ST_AdvancedMode_Ninjitsus = 10012,
 
         [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Hold 1 Charge", "Prevent using both charges of Mudra.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus_ChargeHold = 10012,
+        NIN_ST_AdvancedMode_Ninjitsus_ChargeHold = 10013,
 
         [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Fuma Shuriken", "Spends Mudra charges on Fuma Shuriken (only before Raiton is available).", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus_FumaShuriken = 10013,
+        NIN_ST_AdvancedMode_Ninjitsus_FumaShuriken = 10014,
 
         [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Raiton", "Spends Mudra charges on Raiton.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus_Raiton = 10014,
+        NIN_ST_AdvancedMode_Ninjitsus_Raiton = 10015,
+
+        [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus_Raiton)]
+        [CustomComboInfo("Raiton Uptime Option", "Adds Raiton as an uptime feature.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Raiton_Uptime = 10016,
 
         [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Suiton", "Spends Mudra charges on Suiton.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus_Suiton = 10015,
+        NIN_ST_AdvancedMode_Ninjitsus_Suiton = 10017,
+
+        [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus_Suiton)]
+        [CustomComboInfo("Suiton Uptime Option", "Adds Suiton as an uptime feature.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Suiton_Uptime = 10018,
 
         [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Huton", "Spends Mudra charges on Huton.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Ninjitsus_Huton = 10016,
+        NIN_ST_AdvancedMode_Ninjitsus_Huton = 10019,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Assassinate/Dream Within a Dream Option", "Adds Assassinate and Dream Within a Dream to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_AssassinateDWAD = 10017,
+        NIN_ST_AdvancedMode_AssassinateDWAD = 10020,
 
         [ConflictingCombos(NIN_KassatsuTrick, NIN_KassatsuChiJin)]
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Kassatsu Option", "Adds Kassatsu to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Kassatsu = 10018,
+        NIN_ST_AdvancedMode_Kassatsu = 10021,
 
         [ParentCombo(NIN_ST_AdvancedMode_Kassatsu)]
         [CustomComboInfo($"Use Hyosho Ranryu Option", "Spends Kassatsu on Hyosho Ranryu.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Kassatsu_HyoshoRaynryu = 10019,
+        NIN_ST_AdvancedMode_Kassatsu_HyoshoRaynryu = 10022,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Armor Crush Option", "Adds Armor Crush to Advanced Mode.", NIN.JobID)] //Has Config
-        NIN_ST_AdvancedMode_ArmorCrush = 10020,
-
-        [ParentCombo(NIN_ST_AdvancedMode)]
-        [CustomComboInfo("Huraijin Option", "Adds Huraijin to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Huraijin = 10021,
+        NIN_ST_AdvancedMode_ArmorCrush = 10023,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Bhavacakra Option", "Adds Bhavacakra to Advanced Mode.", NIN.JobID)] //Has Config
-        NIN_ST_AdvancedMode_Bhavacakra = 10022,
+        NIN_ST_AdvancedMode_Bhavacakra = 10024,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Ten Chi Jin Option", "Adds Ten Chi Jin (the cooldown) to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_TCJ = 10023,
+        NIN_ST_AdvancedMode_TCJ = 10025,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Meisui Option", "Adds Meisui to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Meisui = 10024,
+        NIN_ST_AdvancedMode_Meisui = 10026,
+
+        [ParentCombo(NIN_ST_AdvancedMode)]
+        [CustomComboInfo("Zesho Meppo Option", "Adds Zesho Meppo to Advanced Mode.", NIN.JobID)]
+        NIN_ST_AdvancedMode_ZeshoMeppo = 10027,
+
+        [ParentCombo(NIN_ST_AdvancedMode)]
+        [CustomComboInfo("Tenri Jindo Option", "Adds Tenri Jindo to Advanced Mode.", NIN.JobID)]
+        NIN_ST_AdvancedMode_TenriJindo = 10028,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Bunshin Option", "Adds Bunshin to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Bunshin = 10025,
+        NIN_ST_AdvancedMode_Bunshin = 10029,
 
         [ParentCombo(NIN_ST_AdvancedMode_Bunshin)]
         [CustomComboInfo("Phantom Kamaitachi Option", "Adds Phantom Kamaitachi to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Bunshin_Phantom = 10026,
+        NIN_ST_AdvancedMode_Bunshin_Phantom = 10030,
+
+        [ParentCombo(NIN_ST_AdvancedMode_Bunshin_Phantom)]
+        [CustomComboInfo("Phantom Kamaitachi Uptime Option", "Adds Phantom Kamaitachi as an uptime feature.", NIN.JobID)]
+        NIN_ST_AdvancedMode_Phantom_Uptime = 10031,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Raiju Option", "Adds Fleeting/Forked Raiju to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Raiju = 10027,
+        NIN_ST_AdvancedMode_Raiju = 10032,
 
         [ParentCombo(NIN_ST_AdvancedMode_Raiju)]
         [CustomComboInfo("Forked Raiju Gap-Closer Option", "Uses Forked Raiju when out of range.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Raiju_Forked = 10028,
-
-        [ConflictingCombos(NIN_KassatsuChiJin, NIN_KassatsuTrick)]
-        [ParentCombo(NIN_ST_AdvancedMode)]
-        [CustomComboInfo("Balance Opener Option", "Starts with the Balance opener.\nDoes pre-pull first, if you enter combat before hiding the opener will fail.\nLikewise, moving during TCJ will cause the opener to fail too.\nRequires you to be out of combat with majority of your cooldowns available for it to work.", NIN.JobID)]
-        NIN_ST_AdvancedMode_BalanceOpener = 10029,
-
-        [ParentCombo(NIN_ST_AdvancedMode)]
-        [CustomComboInfo("True North Option", "Adds True North to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_TrueNorth = 10030,
-
-        [ParentCombo(NIN_ST_AdvancedMode_TrueNorth)]
-        [CustomComboInfo("Use Before Armor Crush Only Option", "Only triggers the use of True North before Armor Crush.", NIN.JobID)]
-        NIN_ST_AdvancedMode_TrueNorth_ArmorCrush = 10031,
+        NIN_ST_AdvancedMode_Raiju_Forked = 10033,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Second Wind Option", "Adds Second Wind to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_SecondWind = 10032,
+        NIN_ST_AdvancedMode_SecondWind = 10094,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Shade Shift Option", "Adds Shade Shift to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_ShadeShift = 10033,
+        NIN_ST_AdvancedMode_ShadeShift = 10095,
 
         [ParentCombo(NIN_ST_AdvancedMode)]
         [CustomComboInfo("Bloodbath Option", "Adds Bloodbath to Advanced Mode.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Bloodbath = 10034,
+        NIN_ST_AdvancedMode_Bloodbath = 10096,
+
+        [ParentCombo(NIN_ST_AdvancedMode)]
+        [CustomComboInfo("True North Option", "Adds True North to Advanced Mode.", NIN.JobID)]
+        NIN_ST_AdvancedMode_TrueNorth = 10097,
+
+        [ParentCombo(NIN_ST_AdvancedMode_TrueNorth)]
+        [CustomComboInfo("Use Before Armor Crush Only Option", "Only triggers the use of True North before Armor Crush.", NIN.JobID)]
+        NIN_ST_AdvancedMode_TrueNorth_ArmorCrush = 10098,
+
+        [ParentCombo(NIN_ST_AdvancedMode_TrueNorth_ArmorCrush)]
+        [CustomComboInfo("Dynamic True North Option", "Adds True North before Armor Crush when you are not in the correct position for the enhanced potency bonus.", NIN.JobID)]
+        NIN_ST_AdvancedMode_TrueNorth_ArmorCrush_Dynamic = 10099,
+
+        #endregion
+
+        #region AoE Advanced
 
         [ReplaceSkill(NIN.DeathBlossom)]
         [ConflictingCombos(NIN_AoE_SimpleMode)]
         [CustomComboInfo("Advanced Mode - AoE", "Replace Death Blossom with a one-button full AoE rotation.\nThese features are ideal if you want to customize the rotation.", NIN.JobID)]
-        NIN_AoE_AdvancedMode = 10035,
+        NIN_AoE_AdvancedMode = 10101,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Assassinate/Dream Within a Dream Option", "Adds Assassinate/Dream Within a Dream to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_AssassinateDWAD = 10036,
+        NIN_AoE_AdvancedMode_AssassinateDWAD = 10102,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Ninjitsu Option", "Adds Ninjitsu to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Ninjitsus = 10037,
+        NIN_AoE_AdvancedMode_Ninjitsus = 10103,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Hold 1 Charge", "Prevent using both charges of Mudra.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Ninjitsus_ChargeHold = 10038,
+        NIN_AoE_AdvancedMode_Ninjitsus_ChargeHold = 10104,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Katon", "Spends Mudra charges on Katon.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Ninjitsus_Katon = 10039,
+        NIN_AoE_AdvancedMode_Ninjitsus_Katon = 10105,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Doton", "Spends Mudra charges on Doton.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Ninjitsus_Doton = 10040,
+        NIN_AoE_AdvancedMode_Ninjitsus_Doton = 10106,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Ninjitsus)]
         [CustomComboInfo("Use Huton", "Spends Mudra charges on Huton.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Ninjitsus_Huton = 10041,
+        NIN_AoE_AdvancedMode_Ninjitsus_Huton = 10107,
 
         [ConflictingCombos(NIN_KassatsuTrick, NIN_KassatsuChiJin)]
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Kassatsu Option", "Adds Kassatsu to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Kassatsu = 10042,
+        NIN_AoE_AdvancedMode_Kassatsu = 10108,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Kassatsu)]
         [CustomComboInfo("Goka Mekkyaku Option", "Adds Goka Mekkyaku to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_GokaMekkyaku = 10043,
-
-        [ParentCombo(NIN_AoE_AdvancedMode)]
-        [CustomComboInfo("Huraijin Option", "Adds Huraijin to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Huraijin = 10044,
+        NIN_AoE_AdvancedMode_GokaMekkyaku = 10109,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Hellfrog Medium Option", "Adds Hellfrog Medium to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_HellfrogMedium = 10045,
+        NIN_AoE_AdvancedMode_HellfrogMedium = 10110,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Ten Chi Jin Option", "Adds Ten Chi Jin (the cooldown) to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_TCJ = 10046,
+        NIN_AoE_AdvancedMode_TCJ = 10111,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Meisui Option", "Adds Meisui to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Meisui = 10047,
+        NIN_AoE_AdvancedMode_Meisui = 10112,
+
+        [ParentCombo(NIN_AoE_AdvancedMode)]
+        [CustomComboInfo("Deathfrog Medium Option", "Adds Deathfrog Medium to Advanced Mode.", NIN.JobID)]
+        NIN_AoE_AdvancedMode_DeathfrogMedium = 10113,
+
+        [ParentCombo(NIN_AoE_AdvancedMode)]
+        [CustomComboInfo("Tenri Jindo Option", "Adds Tenri Jindo to Advanced Mode.", NIN.JobID)]
+        NIN_AoE_AdvancedMode_TenriJindo = 10114,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Bunshin Option", "Adds Bunshin to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Bunshin = 10048,
+        NIN_AoE_AdvancedMode_Bunshin = 10115,
 
         [ParentCombo(NIN_AoE_AdvancedMode_Bunshin)]
         [CustomComboInfo("Phantom Kamaitachi Option", "Adds Phantom Kamaitachi to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Bunshin_Phantom = 10049,
+        NIN_AoE_AdvancedMode_Bunshin_Phantom = 10116,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Second Wind Option", "Adds Second Wind to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_SecondWind = 10050,
+        NIN_AoE_AdvancedMode_SecondWind = 10197,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Shade Shift Option", "Adds Shade Shift to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_ShadeShift = 10051,
+        NIN_AoE_AdvancedMode_ShadeShift = 10198,
 
         [ParentCombo(NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Bloodbath Option", "Adds Bloodbath to Advanced Mode.", NIN.JobID)]
-        NIN_AoE_AdvancedMode_Bloodbath = 10052,
+        NIN_AoE_AdvancedMode_Bloodbath = 10199,
+
+        #endregion
+
+        #region Misc
 
         [ReplaceSkill(NIN.ArmorCrush)]
         [ConflictingCombos(NIN_ST_SimpleMode)]
         [CustomComboInfo("Armor Crush Combo Feature", "Replace Armor Crush with its combo chain.", NIN.JobID)]
-        NIN_ArmorCrushCombo = 10053,
+        NIN_ArmorCrushCombo = 10200,
 
         [ConflictingCombos(NIN_ST_AdvancedMode_BalanceOpener, NIN_ST_AdvancedMode_BalanceOpener, NIN_ST_AdvancedMode_Kassatsu, NIN_AoE_AdvancedMode_Kassatsu, NIN_KassatsuChiJin)]
         [ReplaceSkill(NIN.Kassatsu)]
         [CustomComboInfo("Kassatsu to Trick Feature", "Replaces Kassatsu with Trick Attack while Suiton or Hidden is up.\nCooldown tracking plugin recommended.", NIN.JobID)]
-        NIN_KassatsuTrick = 10054,
+        NIN_KassatsuTrick = 10201,
 
         [ReplaceSkill(NIN.TenChiJin)]
         [CustomComboInfo("Ten Chi Jin to Meisui Feature", "Replaces Ten Chi Jin (the move) with Meisui while Suiton is up.\nCooldown tracking plugin recommended.", NIN.JobID)]
-        NIN_TCJMeisui = 10055,
+        NIN_TCJMeisui = 10202,
 
         [ConflictingCombos(NIN_ST_AdvancedMode_BalanceOpener, NIN_ST_AdvancedMode_BalanceOpener, NIN_KassatsuTrick, NIN_ST_AdvancedMode_Kassatsu, NIN_AoE_AdvancedMode_Kassatsu)]
         [ReplaceSkill(NIN.Chi)]
         [CustomComboInfo("Kassatsu Chi/Jin Feature", "Replaces Chi with Jin while Kassatsu is up if you have Enhanced Kassatsu.", NIN.JobID)]
-        NIN_KassatsuChiJin = 10056,
+        NIN_KassatsuChiJin = 10203,
 
         [ReplaceSkill(NIN.Hide)]
-        [CustomComboInfo("Hide to Mug/Trick Attack Feature", "Replaces Hide with Mug while in combat and Trick Attack whilst Hidden.", NIN.JobID)]
-        NIN_HideMug = 10057,
+        [CustomComboInfo("Hide to Dokumori/Trick Attack Feature", "Replaces Hide with Dokumori while in combat and Trick Attack whilst Hidden.", NIN.JobID)]
+        NIN_DokumoriHide = 10204,
 
         [ReplaceSkill(NIN.Ten, NIN.Chi, NIN.Jin)]
         [CustomComboInfo("Simple Mudras Feature", "Simplify the mudra casting to avoid failing.", NIN.JobID)]
-        NIN_Simple_Mudras = 10062,
+        NIN_Simple_Mudras = 10205,
 
         [ReplaceSkill(NIN.TenChiJin)]
         [ParentCombo(NIN_TCJMeisui)]
         [CustomComboInfo("Ten Chi Jin Feature", "Turns Ten Chi Jin (the move) into Ten, Chi, and Jin.", NIN.JobID)]
-        NIN_TCJ = 10063,
+        NIN_TCJ = 10206,
 
-        [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus_Raiton)]
-        [CustomComboInfo("Raiton Uptime Option", "Adds Raiton as an uptime feature.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Raiton_Uptime = 10065,
+        #endregion
 
-        [ParentCombo(NIN_ST_AdvancedMode_Bunshin_Phantom)]
-        [CustomComboInfo("Phantom Kamaitachi Uptime Option", "Adds Phantom Kamaitachi as an uptime feature.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Phantom_Uptime = 10066,
-
-        [ParentCombo(NIN_ST_AdvancedMode_Ninjitsus_Suiton)]
-        [CustomComboInfo("Suiton Uptime Option", "Adds Suiton as an uptime feature.", NIN.JobID)]
-        NIN_ST_AdvancedMode_Suiton_Uptime = 10067,
-
-        [ParentCombo(NIN_ST_AdvancedMode_TrueNorth_ArmorCrush)]
-        [CustomComboInfo("Dynamic True North Option", "Adds True North before Armor Crush when you are not in the correct position for the enhanced potency bonus.", NIN.JobID)]
-        NIN_ST_AdvancedMode_TrueNorth_ArmorCrush_Dynamic = 10068,
+        #region Variant
 
         [Variant]
         [VariantParent(NIN_ST_SimpleMode, NIN_ST_AdvancedMode, NIN_AoE_SimpleMode, NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Cure Option", "Use Variant Cure when HP is below set threshold.", NIN.JobID)]
-        NIN_Variant_Cure = 10069,
+        NIN_Variant_Cure = 10210,
 
         [Variant]
         [VariantParent(NIN_ST_SimpleMode, NIN_ST_AdvancedMode, NIN_AoE_SimpleMode, NIN_AoE_AdvancedMode)]
         [CustomComboInfo("Rampart Option", "Use Variant Rampart on cooldown.", NIN.JobID)]
-        NIN_Variant_Rampart = 10070,
+        NIN_Variant_Rampart = 10211,
+
+        #endregion
 
         // Last value = 10070
 

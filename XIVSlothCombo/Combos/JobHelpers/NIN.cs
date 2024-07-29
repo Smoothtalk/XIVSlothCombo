@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.ClientState.JobGauge.Types;
+using Lumina.Data.Parsing.Scd;
 using XIVSlothCombo.Combos.JobHelpers.Enums;
 using XIVSlothCombo.CustomComboNS.Functions;
 using XIVSlothCombo.Data;
@@ -8,9 +9,9 @@ using XIVSlothCombo.Services;
 
 namespace XIVSlothCombo.Combos.JobHelpers
 {
-    internal class NIN
+    internal class NIN : PvE.NIN
     {
-        internal class MudraCasting : PvE.NIN
+        internal class MudraCasting
         {
             ///<summary> Checks if the player is in a state to be able to cast a ninjitsu.</summary>
             private static bool CanCast()
@@ -417,22 +418,23 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class NINOpenerLogic : PvE.NIN
+        internal class NINOpenerLogic
         {
             private static bool HasCooldowns()
             {
                 if (CustomComboFunctions.GetRemainingCharges(Ten) < 1) return false;
-                if (CustomComboFunctions.IsOnCooldown(Mug)) return false;
+                if (CustomComboFunctions.IsOnCooldown(Dokumori)) return false;
                 if (CustomComboFunctions.IsOnCooldown(TenChiJin)) return false;
                 if (CustomComboFunctions.IsOnCooldown(PhantomKamaitachi)) return false;
                 if (CustomComboFunctions.IsOnCooldown(Bunshin)) return false;
                 if (CustomComboFunctions.IsOnCooldown(DreamWithinADream)) return false;
                 if (CustomComboFunctions.IsOnCooldown(Kassatsu)) return false;
+                if (CustomComboFunctions.IsOnCooldown(KunaisBane)) return false;
 
                 return true;
             }
 
-            private static uint OpenerLevel => 90;
+            private static uint OpenerLevel => 100;
 
             public uint PrePullStep = 1;
 
@@ -478,17 +480,12 @@ namespace XIVSlothCombo.Combos.JobHelpers
                         return true;
                     }
 
-                    if (CustomComboFunctions.WasLastAction(Huton) && PrePullStep == 1) PrePullStep++;
-                    else if (PrePullStep == 1) mudraState.CastHuton(ref actionID);
 
-                    if (CustomComboFunctions.WasLastAction(Hide) && PrePullStep == 2) PrePullStep++;
-                    else if (PrePullStep == 2) { actionID = CustomComboFunctions.OriginalHook(Hide); }
-
-                    if (CustomComboFunctions.WasLastAction(Suiton) && PrePullStep == 3) CurrentState = OpenerState.InOpener;
-                    else if (PrePullStep == 3) mudraState.CastSuiton(ref actionID);
+                    if (CustomComboFunctions.WasLastAction(Suiton) && PrePullStep == 1) CurrentState = OpenerState.InOpener;
+                    else if (PrePullStep == 1) mudraState.CastSuiton(ref actionID);
 
                     //Failure states
-                    if (PrePullStep is (1 or 2) && CustomComboFunctions.InCombat()) { mudraState.CurrentMudra = MudraCasting.MudraState.None; ResetOpener(); }
+                    if (CustomComboFunctions.InCombat()) { mudraState.CurrentMudra = MudraCasting.MudraState.None; ResetOpener(); }
 
                     return true;
 
@@ -515,8 +512,8 @@ namespace XIVSlothCombo.Combos.JobHelpers
                     if (CustomComboFunctions.WasLastAction(GustSlash) && OpenerStep == 3) OpenerStep++;
                     else if (OpenerStep == 3) actionID = CustomComboFunctions.OriginalHook(GustSlash);
 
-                    if (CustomComboFunctions.WasLastAction(Mug) && OpenerStep == 4) OpenerStep++;
-                    else if (OpenerStep == 4) actionID = CustomComboFunctions.OriginalHook(Mug);
+                    if (CustomComboFunctions.WasLastAction(Dokumori) && OpenerStep == 4) OpenerStep++;
+                    else if (OpenerStep == 4) actionID = CustomComboFunctions.OriginalHook(Dokumori);
 
                     if (CustomComboFunctions.WasLastAction(Bunshin) && OpenerStep == 5) OpenerStep++;
                     else if (OpenerStep == 5) actionID = CustomComboFunctions.OriginalHook(Bunshin);
@@ -524,17 +521,17 @@ namespace XIVSlothCombo.Combos.JobHelpers
                     if (CustomComboFunctions.WasLastAction(PhantomKamaitachi) && OpenerStep == 6) OpenerStep++;
                     else if (OpenerStep == 6) actionID = CustomComboFunctions.OriginalHook(PhantomKamaitachi);
 
-                    if (CustomComboFunctions.WasLastAction(TrickAttack) && OpenerStep == 7) OpenerStep++;
-                    else if (OpenerStep == 7 && inLateWeaveWindow) actionID = CustomComboFunctions.OriginalHook(TrickAttack);
+                    if (CustomComboFunctions.WasLastAction(ArmorCrush) && OpenerStep == 7) OpenerStep++;
+                    else if (OpenerStep == 7) actionID = CustomComboFunctions.OriginalHook(ArmorCrush);
 
-                    if (CustomComboFunctions.WasLastAction(AeolianEdge) && OpenerStep == 8) OpenerStep++;
-                    else if (OpenerStep == 8) actionID = CustomComboFunctions.OriginalHook(AeolianEdge);
+                    if (CustomComboFunctions.WasLastAction(KunaisBane) && OpenerStep == 8) OpenerStep++;
+                    else if (OpenerStep == 8 && inLateWeaveWindow) actionID = CustomComboFunctions.OriginalHook(KunaisBane);
 
-                    if (CustomComboFunctions.WasLastAction(DreamWithinADream) && OpenerStep == 9) OpenerStep++;
-                    else if (OpenerStep == 9) actionID = CustomComboFunctions.OriginalHook(DreamWithinADream);
+                    if (CustomComboFunctions.WasLastAction(HyoshoRanryu) && OpenerStep == 9) OpenerStep++;
+                    else if (OpenerStep == 9) mudraState.CastHyoshoRanryu(ref actionID);
 
-                    if (CustomComboFunctions.WasLastAction(HyoshoRanryu) && OpenerStep == 10) OpenerStep++;
-                    else if (OpenerStep == 10) mudraState.CastHyoshoRanryu(ref actionID);
+                    if (CustomComboFunctions.WasLastAction(DreamWithinADream) && OpenerStep == 10) OpenerStep++;
+                    else if (OpenerStep == 10) actionID = CustomComboFunctions.OriginalHook(DreamWithinADream);
 
                     if (CustomComboFunctions.WasLastAction(Raiton) && OpenerStep == 11) OpenerStep++;
                     else if (OpenerStep == 11) mudraState.CastRaiton(ref actionID);
@@ -557,15 +554,23 @@ namespace XIVSlothCombo.Combos.JobHelpers
                     if (CustomComboFunctions.WasLastAction(FleetingRaiju) && OpenerStep == 17) OpenerStep++;
                     else if (OpenerStep == 17) actionID = CustomComboFunctions.OriginalHook(FleetingRaiju);
 
-                    if (CustomComboFunctions.WasLastAction(Bhavacakra) && OpenerStep == 18) OpenerStep++;
-                    else if (OpenerStep == 18) actionID = CustomComboFunctions.OriginalHook(Bhavacakra);
+                    if (CustomComboFunctions.WasLastAction(ZeshoMeppo) && OpenerStep == 18) OpenerStep++;
+                    else if (OpenerStep == 18) actionID = CustomComboFunctions.OriginalHook(ZeshoMeppo);
 
-                    if (CustomComboFunctions.WasLastAction(FleetingRaiju) && OpenerStep == 19) OpenerStep++;
-                    else if (OpenerStep == 19) actionID = CustomComboFunctions.OriginalHook(FleetingRaiju);
+                    if (CustomComboFunctions.WasLastAction(TenriJindo) && OpenerStep == 19) OpenerStep++;
+                    else if (OpenerStep == 19) actionID = CustomComboFunctions.OriginalHook(TenriJindo);
 
-                    if (CustomComboFunctions.WasLastAction(Bhavacakra) && OpenerStep == 20) CurrentState = OpenerState.OpenerFinished;
-                    else if (OpenerStep == 20) actionID = CustomComboFunctions.OriginalHook(Bhavacakra);
+                    if (CustomComboFunctions.WasLastAction(FleetingRaiju) && OpenerStep == 20) OpenerStep++;
+                    else if (OpenerStep == 20) actionID = CustomComboFunctions.OriginalHook(FleetingRaiju);
 
+                    if (CustomComboFunctions.WasLastAction(Bhavacakra) && OpenerStep == 21) OpenerStep++;
+                    else if (OpenerStep == 21) actionID = CustomComboFunctions.OriginalHook(Bhavacakra);
+
+                    if (CustomComboFunctions.WasLastAction(Raiton) && OpenerStep == 22) OpenerStep++;
+                    else if (OpenerStep == 22) mudraState.CastRaiton(ref actionID);
+
+                    if (CustomComboFunctions.WasLastAction(FleetingRaiju) && OpenerStep == 23) CurrentState = OpenerState.OpenerFinished;
+                    else if (OpenerStep == 23) actionID = CustomComboFunctions.OriginalHook(FleetingRaiju);
 
                     //Failure states
                     if ((OpenerStep is 13 or 14 or 15 && CustomComboFunctions.IsMoving) ||
@@ -574,7 +579,6 @@ namespace XIVSlothCombo.Combos.JobHelpers
                         (OpenerStep is 17 or 19 && !CustomComboFunctions.HasEffect(Buffs.RaijuReady)) ||
                         (OpenerStep is 10 && !CustomComboFunctions.HasEffect(Buffs.Kassatsu)))
                         ResetOpener();
-
 
                     return true;
                 }
