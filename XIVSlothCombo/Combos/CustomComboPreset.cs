@@ -1488,6 +1488,9 @@ namespace XIVSlothCombo.Combos
 
         [CustomComboInfo("2.4X Advanced TEA Gunbreaker Feature", "Replace Keen Edge with its combo chain and uses Burst Strike to prevent ammo overcap. Level 80/TEA", GNB.JobID)]
         GNB_ST_TEA = 7015,
+
+        [CustomComboInfo("2.45 Advanced Gunbreaker Feature (Temp)", "Replace Keen Edge with its combo chain and uses Burst Strike to prevent ammo overcap. ***TESTING WITH 2.45***", GNB.JobID)]
+        GNB_ST_245_Temp = 7016,
         #endregion
 
         #region Gnashing Fang
