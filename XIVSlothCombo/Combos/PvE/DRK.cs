@@ -187,10 +187,16 @@ namespace XIVSlothCombo.Combos.PvE
                         if (IsEnabled(CustomComboPreset.DRK_ST_Delirium)
                             && IsOffCooldown(BloodWeapon)
                             && LevelChecked(BloodWeapon)
-                            && CombatEngageDuration().TotalSeconds > 5)
+                            && ((CombatEngageDuration().TotalSeconds < 10 // Opening Delirium
+                                    && WasLastWeaponskill(Souleater))
+                                || CombatEngageDuration().TotalSeconds > 10)) // Regular Delirium
                             return OriginalHook(Delirium);
 
-                        if (IsEnabled(CustomComboPreset.DRK_ST_CDs))
+                        if (IsEnabled(CustomComboPreset.DRK_ST_CDs)
+                            && ((CombatEngageDuration().TotalSeconds < 10 // Opening CDs
+                                 && !HasEffect(Buffs.Scorn)
+                                 && IsOnCooldown(LivingShadow))
+                                || CombatEngageDuration().TotalSeconds > 10)) // Regular CDs
                         {
                             // Salted Earth
                             if (IsEnabled(CustomComboPreset.DRK_ST_CDs_SaltedEarth))
@@ -201,7 +207,7 @@ namespace XIVSlothCombo.Combos.PvE
                                     return SaltedEarth;
                                 //Cast Salt and Darkness
                                 if (HasEffect(Buffs.SaltedEarth)
-                                 && GetBuffRemainingTime(Buffs.SaltedEarth) < 9
+                                 && GetBuffRemainingTime(Buffs.SaltedEarth) < 7
                                  && ActionReady(SaltAndDarkness))
                                     return OriginalHook(SaltAndDarkness);
                             }
