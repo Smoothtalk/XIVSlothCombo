@@ -113,7 +113,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class MeleeFinisher
+        internal class MeleeFinisher : PvE.RDM
         {
             internal static bool CanUse(in uint lastComboMove, out uint actionID)
             {

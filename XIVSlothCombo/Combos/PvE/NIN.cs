@@ -366,11 +366,10 @@ namespace XIVSlothCombo.Combos.PvE
                             mudraState.CastRaiton(ref actionID))
                             return actionID;
 
-                        if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_FumaShuriken) &&
-                            !Raiton.LevelChecked() &&
-                            chargeCheck &&
-                            mudraState.CastFumaShuriken(ref actionID))
-                            return actionID;
+                        if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus))
+                        {
+                            if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Suiton) &&
+                                setupSuitonWindow &&
                     }
 
 

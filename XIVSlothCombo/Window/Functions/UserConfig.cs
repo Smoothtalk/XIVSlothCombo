@@ -2,6 +2,7 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Utility;
+using ECommons.DalamudServices;
 using ImGuiNET;
 using System;
 using System.Linq;
@@ -14,6 +15,7 @@ using XIVSlothCombo.CustomComboNS.Functions;
 using XIVSlothCombo.Data;
 using XIVSlothCombo.Extensions;
 using XIVSlothCombo.Services;
+
 
 namespace XIVSlothCombo.Window.Functions
 {
@@ -1745,6 +1747,17 @@ namespace XIVSlothCombo.Window.Functions
             //    ImGui.Spacing();
             //}
 
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_MP_Reserve)
+            {
+                UserConfig.DrawSliderInt(1000, 10000, PLD.Config.PLD_ST_MP_Reserve, "Minimum MP gauge required.", sliderIncrement: 100);
+            }
+
+            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_MP_Reserve)
+            {
+                UserConfig.DrawSliderInt(1000, 10000, PLD.Config.PLD_AoE_MP_Reserve, "Minimum MP gauge required.", sliderIncrement: 100);
+            }
+
+
             if (preset == CustomComboPreset.PLD_SpiritsWithin)
             {
                 UserConfig.DrawRadioButton(PLD.Config.PLD_SpiritsWithinOption, "Prioritize Circle of Scorn", "", 1);
@@ -1752,19 +1765,19 @@ namespace XIVSlothCombo.Window.Functions
             }
 
             if (preset == CustomComboPreset.PLD_ST_AdvancedMode_FoF)
-                UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_FoF_Option, "Target HP%", 200);
+                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_ST_FoF_Trigger, "Target HP%", 200);
 
             if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_FoF)
-                UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_FoF_Option, "Target HP%", 200);
+                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_AoE_FoF_Trigger, "Target HP%", 200);
 
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
-                UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_SheltronHP, "Player HP%", 200);
+            //if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
+            //    UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_SheltronHP, "Player HP%", 200);
 
             if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
                 UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_ST_SheltronOption, "Oath Gauge", 200, 5);
 
-            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
-                UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_SheltronHP, "Player HP%", 200);
+            //if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
+            //    UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_SheltronHP, "Player HP%", 200);
 
             if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
                 UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 200, 5);
@@ -2571,13 +2584,13 @@ namespace XIVSlothCombo.Window.Functions
             // ====================================================================================
             #region PvP VALUES
 
-            IPlayerCharacter? pc = Service.ClientState.LocalPlayer;
+            IPlayerCharacter? pc = Svc.ClientState.LocalPlayer;
 
             if (preset == CustomComboPreset.PvP_EmergencyHeals)
             {
                 if (pc != null)
                 {
-                    uint maxHP = Service.ClientState.LocalPlayer?.MaxHp <= 15000 ? 0 : Service.ClientState.LocalPlayer.MaxHp - 15000;
+                    uint maxHP = Svc.ClientState.LocalPlayer?.MaxHp <= 15000 ? 0 : Svc.ClientState.LocalPlayer.MaxHp - 15000;
 
                     if (maxHP > 0)
                     {
