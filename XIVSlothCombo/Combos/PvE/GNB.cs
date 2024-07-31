@@ -2,7 +2,6 @@ using Dalamud.Game.ClientState.JobGauge.Types;
 using Dalamud.Game.ClientState.Statuses;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using Dalamud.Interface.FontIdentifier;
-using FFXIVClientStructs.FFXIV.Client.UI;
 using XIVSlothCombo.Combos.PvE.Content;
 using XIVSlothCombo.CustomComboNS;
 
@@ -303,7 +302,7 @@ namespace XIVSlothCombo.Combos.PvE
                             if (!LevelChecked(ReignOfBeasts)
                                 && gauge.Ammo >= 1 && gauge.AmmoComboStep == 0
                                 && HasEffect(Buffs.NoMercy) && !HasEffect(Buffs.ReadyToBreak)
-                                && IsOnCooldown(DoubleDown) && IsOnCooldown(GnashingFang)))
+                                && IsOnCooldown(DoubleDown) && IsOnCooldown(GnashingFang))
                                 return BurstStrike;
                         }
                     }
