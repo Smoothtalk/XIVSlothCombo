@@ -205,7 +205,6 @@ namespace XIVSlothCombo.Combos.PvE
                             return (LevelChecked(OriginalHook(Disembowel)) &&
                                 ((LevelChecked(OriginalHook(ChaosThrust)) && (ChaosDoTDebuff is null ||
                                 ChaosDoTDebuff.RemainingTime < GCD * 5 ||
-                                GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 7))
                                 GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 7)) ||
                                 (!LevelChecked(ChaosThrust) && GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 4)))
                                 ? OriginalHook(Disembowel)
