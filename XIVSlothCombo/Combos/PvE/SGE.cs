@@ -4,9 +4,11 @@ using Dalamud.Game.ClientState.Statuses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using XIVSlothCombo.Combos.JobHelpers;
 using XIVSlothCombo.Combos.PvE.Content;
 using XIVSlothCombo.CustomComboNS;
 using XIVSlothCombo.CustomComboNS.Functions;
+using XIVSlothCombo.Data;
 
 namespace XIVSlothCombo.Combos.PvE
 {
@@ -46,6 +48,7 @@ namespace XIVSlothCombo.Combos.PvE
             Dyskrasia = 24297,
             Dyskrasia2 = 24315,
             Toxikon = 24304,
+            Toxikon2 = 24316,
             Pneuma = 24318,
             EukrasianDyskrasia = 37032,
             Psyche = 37033,
@@ -312,6 +315,9 @@ namespace XIVSlothCombo.Combos.PvE
         internal class SGE_ST_DPS : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_ST_DPS;
+            internal static SGEOpenerLogic SGEOpener = new();
+            internal static int PsycheCount => ActionWatching.CombatActions.Count(x => x == Psyche);
+
             protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
             {
                 bool ActionFound = actionID is Dosis2 || (!Config.SGE_ST_DPS_Adv && DosisList.ContainsKey(actionID));
@@ -323,17 +329,20 @@ namespace XIVSlothCombo.Combos.PvE
                         FindEffect(Buffs.Kardia) is null)
                         return Kardia;
 
+                    // Opener for SGE
+                    if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Opener))
+                    {
+                        if (SGEOpener.DoFullOpener(ref actionID))
+                            return actionID;
+                    }
+
                     // Lucid Dreaming
                     if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) &&
-                        ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) &&
-                        LocalPlayer.CurrentMp <= Config.SGE_ST_DPS_Lucid)
+                        All.CanUseLucid(actionID, Config.SGE_ST_DPS_Lucid))
                         return All.LucidDreaming;
 
                     // Variant
-                    if (IsEnabled(CustomComboPreset.SGE_DPS_Variant_Rampart) &&
-                        IsEnabled(Variant.VariantRampart) &&
-                        IsOffCooldown(Variant.VariantRampart) &&
-                        CanSpellWeave(actionID))
+                    if (Variant.CanRampart(CustomComboPreset.SGE_DPS_Variant_Rampart, actionID, true))
                         return Variant.VariantRampart;
 
                     // Rhizomata
@@ -346,7 +355,7 @@ namespace XIVSlothCombo.Combos.PvE
                         ActionReady(Druochole) && Gauge.Addersgall >= Config.SGE_ST_DPS_AddersgallProtect)
                         return Druochole;
 
-                    if (HasBattleTarget() && (!HasEffect(Buffs.Eukrasia)))
+                    if (HasBattleTarget() && !HasEffect(Buffs.Eukrasia))
                     // Buff check Above. Without it, Toxikon and any future option will interfere in the Eukrasia->Eukrasia Dosis combo
                     {
                         // Eukrasian Dosis.
@@ -387,9 +396,10 @@ namespace XIVSlothCombo.Combos.PvE
 
                         // Psyche
                         if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Psyche) &&
-                            ActionReady(Psyche) &&
+                                                        ActionReady(Psyche) &&
                             InCombat() &&
-                            CanSpellWeave(actionID)) //ToDo: Verify
+                            CanSpellWeave(actionID) &&
+                            WasLastSpell(OriginalHook(Phlegma))) //ToDo: Verify
                             return Psyche;
 
 
