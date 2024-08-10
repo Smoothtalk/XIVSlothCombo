@@ -1035,7 +1035,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // No Mercy
-                    if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
                     {
                         if (ActionReady(NoMercy))
                         {
@@ -1068,7 +1068,7 @@ namespace XIVSlothCombo.Combos.PvE
                     // oGCDs
                     if (CanWeave(actionID))
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
+                        if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                         {
                             // Continuation
                             if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
@@ -1124,7 +1124,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // Double Down
-                    if ((HasEffect(Buffs.NoMercy) || GetBuffRemainingTime(Buffs.NoMercy) >= GCD * 1) && IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
+                    if ((HasEffect(Buffs.NoMercy) || GetBuffRemainingTime(Buffs.NoMercy) >= GCD * 1) && IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                     {
                         // Lv100
                         if (LevelChecked(ReignOfBeasts) && WasLastWeaponskill(GnashingFang) && (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown)))
@@ -1282,7 +1282,7 @@ namespace XIVSlothCombo.Combos.PvE
                         return LightningShot;
 
                     // No Mercy
-                    if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
                     {
                         if (ActionReady(NoMercy))
                         {
@@ -1298,7 +1298,7 @@ namespace XIVSlothCombo.Combos.PvE
                     // oGCDs
                     if (CanWeave(actionID))
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
+                        if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                         {
                             // Continuation
                             if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
@@ -1446,7 +1446,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // No Mercy
-                    if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup) && IsEnabled(CustomComboPreset.GNB_ST_NoMercy))
                     {
                         if (ActionReady(NoMercy))
                         {
@@ -1483,7 +1483,7 @@ namespace XIVSlothCombo.Combos.PvE
                         if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
                             return Variant.VariantUltimatum;
 
-                        if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup))
+                        if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                         {
                             // Bloodfest
                             if (IsEnabled(CustomComboPreset.GNB_ST_Bloodfest) && ActionReady(Bloodfest) && gauge.Ammo is 0 && HasEffect(Buffs.NoMercy))
@@ -1572,7 +1572,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // Double Down
-                    if (IsEnabled(CustomComboPreset.GNB_ST_MainCombo_CooldownsGroup) && (HasEffect(Buffs.NoMercy) || GetBuffRemainingTime(Buffs.NoMercy) >= GCD * 4) && gauge.Ammo >= 2)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup) && (HasEffect(Buffs.NoMercy) || GetBuffRemainingTime(Buffs.NoMercy) >= GCD * 4) && gauge.Ammo >= 2)
                     {
                         // Lv100
                         if (LevelChecked(ReignOfBeasts) && (IsEnabled(CustomComboPreset.GNB_ST_DoubleDown) && GetCooldownRemainingTime(DoubleDown) <= 0.6f))
