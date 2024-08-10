@@ -1759,6 +1759,50 @@ namespace XIVSlothCombo.Window.Functions
             // ====================================================================================
             #region PALADIN
 
+            // Fight or Flight
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_FoF)
+                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_ST_FoF_Trigger, "Target HP%", 200);
+
+            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_FoF)
+                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_AoE_FoF_Trigger, "Target HP%", 200);
+
+            // Sheltron
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
+                UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_ST_SheltronOption, "Oath Gauge", 200, 5);
+
+            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
+                UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 200, 5);
+
+            // Intervene
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Intervene)
+            {
+                UserConfig.DrawSliderInt(0, 1, PLD.Config.PLD_Intervene_HoldCharges, "Charges", 200);
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_Intervene_MeleeOnly, "Melee Range", "Uses Intervene while within melee range.\nMay result in minor movement.", 1);
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_Intervene_MeleeOnly, "No Movement", "Only uses Intervene when it would not result in movement (zero distance).", 2);
+            }
+
+            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Intervene)
+            {
+                UserConfig.DrawSliderInt(0, 1, PLD.Config.PLD_AoE_Intervene_HoldCharges, "Charges", 200);
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_AoE_Intervene_MeleeOnly, "Melee Range", "Uses Intervene while within melee range.\nMay result in minor movement.", 1);
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_AoE_Intervene_MeleeOnly, "No Movement", "Only uses Intervene when it would not result in movement (zero distance).", 2);
+            }
+
+            // Shield Lob
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_ShieldLob)
+            {
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ShieldLob_SubOption, "Shield Lob Only", "Uses only Shield Lob.", 1);
+                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ShieldLob_SubOption, "Hardcast Holy Spirit", "Attempts to hardcast Holy Spirit when not moving.\nOtherwise uses Shield Lob.", 2);
+            }
+
+            // MP Reservation
+            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_MP_Reserve)
+                UserConfig.DrawSliderInt(1000, 5000, PLD.Config.PLD_ST_MP_Reserve, "Minimum MP", sliderIncrement: 100);
+
+            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_MP_Reserve)
+                UserConfig.DrawSliderInt(1000, 5000, PLD.Config.PLD_AoE_MP_Reserve, "Minimum MP", sliderIncrement: 100);
+
+            // Requiescat Spender Feature
             if (preset == CustomComboPreset.PLD_Requiescat_Options)
             {
                 UserConfig.DrawRadioButton(PLD.Config.PLD_RequiescatOption, "Confiteor", "", 1);
@@ -1768,88 +1812,16 @@ namespace XIVSlothCombo.Window.Functions
                 UserConfig.DrawRadioButton(PLD.Config.PLD_RequiescatOption, "Holy Circle", "", 5);
             }
 
-            // Removed Requiescat weaving options pending further assessment - Kaeris
-            //if (preset is CustomComboPreset.PLD_ST_AdvancedMode_Requiescat)
-            //{
-            //    UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ST_RequiescatWeave, "Standard Weave", "Weaves Requiescat immediately after Fight or Flight for a standard burst window.", 0, 150, ImGuiColors.ParsedGreen);
-            //    UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ST_RequiescatWeave, "Late Weave", "Late-weaves Requiescat after Fight or Flight.\nEnsures Requiescat's damage falls under the Fight or Flight buff, but may lead to misalignment in longer fights.", 1, 150, ImGuiColors.DalamudYellow);
-            //    ImGui.Spacing();
-            //}
-
-            //if (preset is CustomComboPreset.PLD_AoE_AdvancedMode_Requiescat)
-            //{
-            //    UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_AoE_RequiescatWeave, "Standard Weave", "Weaves Requiescat immediately after Fight or Flight for a standard burst window.", 0, 150, ImGuiColors.ParsedGreen);
-            //    UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_AoE_RequiescatWeave, "Late Weave", "Late-weaves Requiescat after Fight or Flight.\nEnsures Requiescat's damage falls under the Fight or Flight buff, but may lead to misalignment in longer fights.", 1, 150, ImGuiColors.DalamudYellow);
-            //    ImGui.Spacing();
-            //}
-
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_MP_Reserve)
-            {
-                UserConfig.DrawSliderInt(1000, 10000, PLD.Config.PLD_ST_MP_Reserve, "Minimum MP gauge required.", sliderIncrement: 100);
-            }
-
-            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_MP_Reserve)
-            {
-                UserConfig.DrawSliderInt(1000, 10000, PLD.Config.PLD_AoE_MP_Reserve, "Minimum MP gauge required.", sliderIncrement: 100);
-            }
-
-
+            // Spirits Within / Circle of Scorn Feature
             if (preset == CustomComboPreset.PLD_SpiritsWithin)
             {
                 UserConfig.DrawRadioButton(PLD.Config.PLD_SpiritsWithinOption, "Prioritize Circle of Scorn", "", 1);
                 UserConfig.DrawRadioButton(PLD.Config.PLD_SpiritsWithinOption, "Prioritize Spirits Within / Expiacion", "", 2);
             }
 
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_FoF)
-                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_ST_FoF_Trigger, "Target HP%", 200);
-
-            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_FoF)
-                UserConfig.DrawSliderInt(0, 50, PLD.Config.PLD_AoE_FoF_Trigger, "Target HP%", 200);
-
-            //if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
-            //    UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_SheltronHP, "Player HP%", 200);
-
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
-                UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_ST_SheltronOption, "Oath Gauge", 200, 5);
-
-            //if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
-            //    UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_SheltronHP, "Player HP%", 200);
-
-            if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
-                UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 200, 5);
-
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Intervene)
-                UserConfig.DrawSliderInt(0, 1, PLD.Config.PLD_Intervene_HoldCharges, "Charges", 200);
-
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Intervene)
-            {
-                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_Intervene_MeleeOnly, "Melee Range", "Uses Intervene while within melee range.\nMay result in minor movement.", 1);
-                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_Intervene_MeleeOnly, "No Movement", "Only uses Intervene when it would not result in movement (zero distance).", 2);
-            }
-
-            if (preset == CustomComboPreset.PLD_ST_AdvancedMode_ShieldLob)
-            {
-                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ShieldLob_SubOption, "Shield Lob Only", "Uses only Shield Lob.", 1);
-                UserConfig.DrawHorizontalRadioButton(PLD.Config.PLD_ShieldLob_SubOption, "Hardcast Holy Spirit", "Attempts to hardcast Holy Spirit when not moving.\nOtherwise uses Shield Lob.", 2);
-            }
-
+            // Variant Cure Feature
             if (preset == CustomComboPreset.PLD_Variant_Cure)
                 UserConfig.DrawSliderInt(1, 100, PLD.Config.PLD_VariantCure, "Player HP%", 200);
-
-            // New logic handles early/late spend for Atonement and Holy Spirit automatically - Kaeris
-            //if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Atonement)
-            //{
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_AtonementTiming, "Early Spend", "Uses Atonement before restarting the basic combo.", 1);
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_AtonementTiming, "Late Spend", "Uses Atonement before the end of the basic combo.", 2);
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_AtonementTiming, "Alternate Spend", "Switches between early and and late depending on how often Flight or Fight is used.", 3);
-            //}
-
-            //if (preset == CustomComboPreset.PLD_ST_AdvancedMode_HolySpirit)
-            //{
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_DivineMightTiming, "Early Spend", "When under the effect of Divine Might, use Holy Spirit before restarting the basic combo.", 1);
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_DivineMightTiming, "Late Spend", "When under the effect of Divine Might, uses Holy Spirit before the end of the basic combo.", 2);
-            //    UserConfig.DrawRadioButton(PLD.Config.PLD_ST_DivineMightTiming, "Alternate Spend", "When under the effect of Divine Might, switches between early and late depending on how often Flight or Fight is used.", 3);
-            //}
 
             #endregion
             // ====================================================================================
@@ -2186,14 +2158,6 @@ namespace XIVSlothCombo.Window.Functions
             // ====================================================================================
             #region SAMURAI
 
-            //Fillers
-            if (preset == CustomComboPreset.SAM_ST_FillerCombos && enabled || preset == CustomComboPreset.SAM_ST_SimpleMode && enabled)
-            {
-                UserConfig.DrawHorizontalRadioButton(SAM.Config.SAM_FillerCombo, "2.14+", "2 Filler GCDs", 0);
-                UserConfig.DrawHorizontalRadioButton(SAM.Config.SAM_FillerCombo, "2.06 - 2.08", "3 Filler GCDs. \nWill use Yaten into Enpi as part of filler and Gyoten back into Range.\nHakaze will be delayed by half a GCD after Enpi.", 1);
-                UserConfig.DrawHorizontalRadioButton(SAM.Config.SAM_FillerCombo, "1.99 - 2.01", "4 Filler GCDs. \nUses double Yukikaze loop.", 2);
-            }
-
             if (preset == CustomComboPreset.SAM_ST_CDs_Iaijutsu)
             {
                 UserConfig.DrawSliderInt(0, 100, SAM.Config.SAM_ST_Higanbana_Threshold, "Stop using Higanbana on targets below this HP % (0% = always use).", 150, SliderIncrements.Ones);
@@ -2305,6 +2269,9 @@ namespace XIVSlothCombo.Window.Functions
 
             if (preset is CustomComboPreset.SCH_ST_Heal_Esuna)
                 UserConfig.DrawSliderInt(0, 100, SCH.Config.SCH_ST_Heal_EsunaOption, "Stop using when below HP %. Set to Zero to disable this check");
+
+            if (preset is CustomComboPreset.SCH_AoE_Heal)
+                UserConfig.DrawSliderInt(4000, 9500, SCH.Config.SCH_AoE_Heal_LucidOption, "MP Threshold", 150, SliderIncrements.Hundreds);
 
             if (preset is CustomComboPreset.SCH_DeploymentTactics)
             {
@@ -2539,6 +2506,10 @@ namespace XIVSlothCombo.Window.Functions
             if (preset == CustomComboPreset.WHM_AoE_DPS_Lucid)
                 UserConfig.DrawSliderInt(4000, 9500, WHM.Config.WHM_AoEDPS_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
 
+            if (preset == CustomComboPreset.WHM_AoE_DPS_PresenceOfMind)
+                UserConfig.DrawAdditionalBoolChoice(WHM.Config.WHM_AoEDPS_PresenceOfMindWeave, "Only Weave or Use Whilst Moving.", "Holy has no weave window so this can only be used to weave against healing or single target damage spells.\n\n" +
+                    "This will minimize the amount of GCD delay you will get but reduce the frequency it will be used.");
+                
             if (preset == CustomComboPreset.WHM_AoEHeals_Lucid)
                 UserConfig.DrawSliderInt(4000, 9500, WHM.Config.WHM_AoEHeals_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
 

@@ -190,9 +190,9 @@ namespace XIVSlothCombo.Combos.PvE
          */
         internal class SGE_DruoTauro : CustomCombo
         {
-            protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_DruoTauro;
+            protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_TauroDruo;
             protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-                => actionID is Druochole && ActionReady(Taurochole) ? Taurochole : actionID;
+                => actionID is Taurochole && IsOnCooldown(Taurochole) ? Druochole : actionID;
         }
 
         /*
@@ -319,6 +319,7 @@ namespace XIVSlothCombo.Combos.PvE
 
             internal static int Toxikon2Count => ActionWatching.CombatActions.Count(x => x == Toxikon2);
 
+
             protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
             {
                 bool ActionFound = actionID is Dosis2 || (!Config.SGE_ST_DPS_Adv && DosisList.ContainsKey(actionID));
@@ -326,12 +327,16 @@ namespace XIVSlothCombo.Combos.PvE
                 if (ActionFound)
                 {
                     bool inOpener = IsEnabled(CustomComboPreset.SGE_ST_DPS_Opener)
-                                   && Dosis3Count < 8 && Gauge.Addersting > 0;
+                                 && Dosis3Count < 4 && Gauge.HasAddersting();
+
+                    // Kardia Reminder
+                    if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Kardia) && LevelChecked(Kardia) &&
+                        FindEffect(Buffs.Kardia) is null)
+                        return Kardia;
 
                     if (inOpener)
                     {
-                        if (((Dosis3Count is 0 && Toxikon2Count is 0) ||
-                            (Dosis3Count is 7 && Toxikon2Count is 1 && !WasLastSpell(EukrasianDosis3))) &&
+                        if (Dosis3Count is 0 && Toxikon2Count is 0 && 
                             !HasEffect(Buffs.Eukrasia))
                             return Eukrasia;
 
@@ -354,15 +359,9 @@ namespace XIVSlothCombo.Combos.PvE
                             return Dosis3;
                     }
 
-                    // Kardia Reminder
-                    if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Kardia) && LevelChecked(Kardia) &&
-                        FindEffect(Buffs.Kardia) is null)
-                        return Kardia;
-
                     // Lucid Dreaming
                     if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) &&
-                        ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) &&
-                        LocalPlayer.CurrentMp <= Config.SGE_ST_DPS_Lucid)
+                        All.CanUseLucid(actionID, Config.SGE_ST_DPS_Lucid))
                         return All.LucidDreaming;
 
                     // Variant
@@ -382,7 +381,7 @@ namespace XIVSlothCombo.Combos.PvE
                         ActionReady(Druochole) && Gauge.Addersgall >= Config.SGE_ST_DPS_AddersgallProtect)
                         return Druochole;
 
-                    if (HasBattleTarget() && !HasEffect(Buffs.Eukrasia) && !inOpener)
+                    if (HasBattleTarget() && !HasEffect(Buffs.Eukrasia))
                     // Buff check Above. Without it, Toxikon and any future option will interfere in the Eukrasia->Eukrasia Dosis combo
                     {
                         // Eukrasian Dosis.
