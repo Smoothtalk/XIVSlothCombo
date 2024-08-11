@@ -422,10 +422,9 @@ namespace XIVSlothCombo.Combos.PvE
 
                         // Psyche
                         if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Psyche) &&
-                            !inOpener &&
                             ActionReady(Psyche) &&
                             InCombat() &&
-                            CanSpellWeave(actionID)) //ToDo: Verify
+                            CanSpellWeave(actionID))
                             return Psyche;
 
 
