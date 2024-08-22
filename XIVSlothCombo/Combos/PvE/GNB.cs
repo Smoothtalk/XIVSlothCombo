@@ -1149,9 +1149,9 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // Use of Gnashing Fang
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD - 0.5)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD - 0.5)
                     {
-                        if ((IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep is 0 && HasEffect(Buffs.NoMercy)) // 60s use;
+                        if ((IsEnabled(CustomComboPreset.GNB_ST_GnashingStarter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep is 0 && HasEffect(Buffs.NoMercy)) // 60s use;
                             || (gauge.Ammo is 1 && HasEffect(Buffs.NoMercy) && GetCooldownRemainingTime(DoubleDown) > GCD * 4) //NMDDGF windows/Scuffed windows
                             || (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) > 17 && GetCooldownRemainingTime(NoMercy) < 35) // 30s use                                                                    
                             || (gauge.Ammo is 1 && GetCooldownRemainingTime(NoMercy) > GCD * 2 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest)))) // Opener Conditions
@@ -1164,7 +1164,7 @@ namespace XIVSlothCombo.Combos.PvE
                         if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                         {
                             // Continuation
-                            if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
+                            if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) &&
                                 (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                                 return OriginalHook(Continuation);
 
@@ -1251,7 +1251,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // GF combo usage
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                     {
                         return OriginalHook(Continuation);
                     }
@@ -1394,7 +1394,7 @@ namespace XIVSlothCombo.Combos.PvE
                         if (IsEnabled(CustomComboPreset.GNB_ST_Advanced_CooldownsGroup))
                         {
                             // Continuation
-                            if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
+                            if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) &&
                                 (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                                 return OriginalHook(Continuation);
 
@@ -1440,16 +1440,16 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // Use of Gnashing Fang
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.5)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= GCD + 0.5)
                     {
-                        if ((IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && gauge.AmmoComboStep is 0 && HasEffect(Buffs.NoMercy)) // 60s use;
+                        if ((IsEnabled(CustomComboPreset.GNB_ST_GnashingStarter) && gauge.AmmoComboStep is 0 && HasEffect(Buffs.NoMercy)) // 60s use;
                             || (gauge.Ammo > 0 && GetCooldownRemainingTime(NoMercy) > 17 && GetCooldownRemainingTime(NoMercy) < 35) // 30s use                                                                    
                             || (gauge.Ammo is 1 && GetCooldownRemainingTime(NoMercy) > GCD * 2 && ((IsOffCooldown(Bloodfest) && LevelChecked(Bloodfest)) || !LevelChecked(Bloodfest)))) // Opener Conditions
                             return GnashingFang;
                     }
 
                     // GF combo usage
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                     {
                         return OriginalHook(Continuation);
                     }
@@ -1602,7 +1602,7 @@ namespace XIVSlothCombo.Combos.PvE
                                 return Hypervelocity;
 
                             // Continuation
-                            if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
+                            if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) &&
                                 (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                                 return OriginalHook(Continuation);
 
@@ -1628,7 +1628,7 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // GF combo
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(Continuation) &&
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(Continuation) &&
                         (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)))
                         return OriginalHook(Continuation);
 
@@ -1651,9 +1651,9 @@ namespace XIVSlothCombo.Combos.PvE
                     }
 
                     // Gnashing Fang
-                    if (IsEnabled(CustomComboPreset.GNB_ST_Gnashing) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= 0.6f && gauge.Ammo > 0)
+                    if (IsEnabled(CustomComboPreset.GNB_ST_Continuation) && LevelChecked(GnashingFang) && GetCooldownRemainingTime(GnashingFang) <= 0.6f && gauge.Ammo > 0)
                     {
-                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingFang_Starter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0
+                        if (IsEnabled(CustomComboPreset.GNB_ST_GnashingStarter) && !HasEffect(Buffs.ReadyToBlast) && gauge.AmmoComboStep == 0
                             && (LevelChecked(ReignOfBeasts) && HasEffect(Buffs.NoMercy)) // Lv100 odd/even minute use
                             || (!LevelChecked(ReignOfBeasts) && LevelChecked(DoubleDown) && HasEffect(Buffs.NoMercy) && WasLastWeaponskill(DoubleDown)) // Lv90 odd/even minute use
                             || (!LevelChecked(ReignOfBeasts) && LevelChecked(DoubleDown) && GetCooldownRemainingTime(NoMercy) > GCD * 20 && WasLastWeaponskill(DoubleDown)) // Lv90 odd minute scuffed windows
